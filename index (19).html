@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>AURA 日本語 — Япон хэл сурах</title>
+<meta name="theme-color" content="#E11D48">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="AURA">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FBF6F2; --panel:#FFFFFF; --panel2:#FDEEF1; --line:#EEE3DD; --line2:#F4EBE6;
+  --ink:#2B2430; --ink2:#4A424C; --muted:#9A8E94;
+  --sakura:#E11D48; --sakura-soft:#FCE7EC; --gold:#B7791F; --gold-soft:#FBF3E2; --green:#15A34A; --red:#DC2626;
+  --shadow:0 2px 10px rgba(120,80,90,.06); --shadow2:0 10px 34px rgba(120,80,90,.14);
+  --jp:'Noto Sans JP',sans-serif; --ui:'Inter',sans-serif; --mono:'JetBrains Mono',monospace;
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--ui);font-size:15px;line-height:1.55}
+a{color:var(--gold)}
+.hidden{display:none !important}
+
+#landing{position:relative;min-height:100vh;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 20px}
+#scene{position:absolute;inset:0;width:100%;height:100%;z-index:0}
+.lwrap{position:relative;z-index:2;text-align:center;width:100%;max-width:400px;transform:translateY(-14px)}
+.hero-jp{font-family:var(--jp);font-weight:900;font-size:54px;letter-spacing:3px;line-height:1;color:#B01235;text-shadow:0 2px 14px rgba(255,255,255,.7)}
+.hero-brand{font-weight:900;font-size:34px;letter-spacing:7px;margin:4px 0 2px;color:#2B2430;text-shadow:0 1px 10px rgba(255,255,255,.8)}
+.hero-tag{color:#7A5A62;font-weight:700;letter-spacing:.4px;margin-bottom:18px;text-shadow:0 1px 8px rgba(255,255,255,.8);font-size:13px}
+.login{background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.95);border-radius:20px;padding:22px;box-shadow:var(--shadow2);text-align:left}
+.authtabs{display:flex;gap:6px;margin-bottom:16px;background:var(--line2);padding:4px;border-radius:12px}
+.atab{flex:1;padding:9px;border:0;background:transparent;border-radius:9px;font-weight:700;color:var(--muted);cursor:pointer;font-family:var(--ui);font-size:14px}
+.atab.active{background:#fff;color:var(--sakura);box-shadow:var(--shadow)}
+.aform{display:flex;flex-direction:column;gap:10px}
+.login input{width:100%;padding:12px 14px;border-radius:12px;border:1px solid var(--line);background:#fff;color:var(--ink);font-family:var(--ui);font-size:15px}
+.login input:focus{outline:none;border-color:var(--sakura)}
+.remember{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--muted);cursor:pointer;margin:-2px 0}
+.remember input{width:auto;margin:0}
+.btn{width:100%;padding:12px;border:0;border-radius:12px;cursor:pointer;font-family:var(--ui);font-weight:800;font-size:15px;letter-spacing:.3px;color:#fff;background:linear-gradient(135deg,var(--sakura),#f43f5e);box-shadow:0 6px 18px rgba(225,29,72,.3);transition:.15s}
+.btn:hover{filter:brightness(1.05);transform:translateY(-1px)}
+.btn[disabled]{opacity:.6;cursor:default;transform:none}
+.btn.ghost{background:transparent;color:var(--muted);box-shadow:none;font-weight:600;font-size:13px;padding:7px}
+.btn.ghost:hover{color:var(--sakura);transform:none}
+.forgot-p{font-size:12.5px;color:var(--muted);margin:0 0 2px}
+.amsg{margin-top:10px;font-size:12.5px;min-height:15px;text-align:center}
+.amsg.ok{color:var(--green)}
+.amsg.err{color:var(--sakura)}
+.lconn{margin-top:12px;font-size:11px;color:#8a7e84;display:flex;align-items:center;gap:7px;justify-content:center}
+
+header{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:18px;padding:14px 22px;background:rgba(255,255,255,.86);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.brand{font-weight:800;letter-spacing:.3px;display:flex;align-items:center;gap:10px;color:var(--ink)}
+.brand .jp{font-family:var(--jp);font-weight:900;color:var(--sakura)}
+.brand small{color:var(--muted);font-weight:700;letter-spacing:2px;text-transform:uppercase;font-size:10px}
+.hi{margin-left:6px;color:var(--muted);font-size:12px;font-weight:600}
+.stats{margin-left:auto;display:flex;gap:18px;flex-wrap:wrap;align-items:center}
+.stat{text-align:right}
+.stat b{font-family:var(--mono);color:var(--sakura);font-size:16px;display:block;line-height:1.1}
+.stat span{color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:1px}
+.out{border:1px solid var(--line);background:var(--panel);color:var(--muted);border-radius:9px;padding:6px 12px;font-size:12px;font-weight:600;cursor:pointer}
+.out:hover{border-color:var(--sakura);color:var(--sakura)}
+.levels{display:flex;gap:8px;padding:12px 22px;border-bottom:1px solid var(--line);overflow-x:auto;background:rgba(255,255,255,.55)}
+.lvl{border:1px solid var(--line);background:var(--panel);color:var(--ink);padding:7px 16px;border-radius:999px;cursor:pointer;font-weight:700;white-space:nowrap;display:flex;align-items:center;gap:8px;transition:.15s;box-shadow:var(--shadow)}
+.lvl:hover{border-color:var(--sakura);color:var(--sakura)}
+.lvl.active{background:linear-gradient(135deg,var(--sakura),#f43f5e);border-color:transparent;color:#fff;box-shadow:0 4px 14px rgba(225,29,72,.28)}
+.lvl.active:hover{color:#fff}
+.lvl .n{font-family:var(--mono);opacity:.75;font-size:12px}
+.wrap{display:flex;min-height:calc(100vh - 118px)}
+aside{width:308px;flex:none;border-right:1px solid var(--line);padding:14px;overflow-y:auto;max-height:calc(100vh - 118px);position:sticky;top:118px}
+.search{width:100%;padding:9px 12px;border-radius:10px;border:1px solid var(--line);background:var(--panel);color:var(--ink);font-family:var(--ui);margin-bottom:12px;box-shadow:var(--shadow)}
+.search::placeholder{color:var(--muted)}
+.search:focus{outline:none;border-color:var(--sakura)}
+.lgroup{margin-bottom:8px;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--panel);box-shadow:var(--shadow)}
+.lghead{display:flex;align-items:center;gap:8px;padding:11px 12px;cursor:pointer;font-weight:800;background:linear-gradient(135deg,var(--sakura-soft),var(--gold-soft))}
+.lghead .code{font-family:var(--mono);color:var(--sakura);letter-spacing:.5px}
+.lghead .lgname{font-size:12px;font-weight:600;color:var(--ink2)}
+.lghead .cnt{margin-left:auto;font-size:10px;color:var(--muted);font-family:var(--mono)}
+.lgbody{display:none;padding:6px 8px 8px}
+.lgroup.open .lgbody{display:block}
+.lgroup.open .lghead .chev{transform:rotate(90deg)}
+.chev{transition:.15s;color:var(--muted);display:inline-block;font-size:11px}
+.mod{margin-bottom:3px}
+.mod>.mhead{display:flex;align-items:center;gap:8px;padding:8px 9px;border-radius:8px;cursor:pointer;font-weight:700;font-size:13px;color:var(--ink)}
+.mod>.mhead:hover{background:var(--panel2)}
+.mod>.mhead .native{font-family:var(--jp);color:var(--gold);font-weight:700;font-size:11px;margin-left:auto}
+.mod .lessons{margin:2px 0 6px 8px;border-left:1px solid var(--line);padding-left:8px;display:none}
+.mod.open .lessons{display:block}
+.mod.open>.mhead .chev{transform:rotate(90deg)}
+.lz{padding:7px 9px;border-radius:8px;cursor:pointer;font-size:13px;color:var(--muted);display:flex;align-items:center;gap:8px}
+.lz:hover{background:var(--panel2);color:var(--ink)}
+.lz.active{background:var(--sakura-soft);color:var(--sakura);font-weight:600}
+.lz .num{font-family:var(--mono);font-size:11px;opacity:.6;flex:none;width:16px}
+.lz .native{font-family:var(--jp);margin-left:auto;font-size:11px;opacity:.6}
+main{flex:1;padding:26px 34px;overflow-x:hidden;max-width:920px}
+.lessonhdr{margin-bottom:20px}
+.lessonhdr .crumb{color:var(--muted);font-size:12px;letter-spacing:.4px;margin-bottom:6px}
+.lessonhdr h1{margin:0;font-size:26px;font-weight:800;color:var(--ink)}
+.lessonhdr .jp{font-family:var(--jp);color:var(--gold);font-weight:700;font-size:16px;margin-top:2px}
+.lessonhdr .meta{margin-top:8px;display:flex;gap:14px;color:var(--muted);font-size:12px;font-family:var(--mono)}
+.block{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin-bottom:16px;box-shadow:var(--shadow)}
+.block .btag{display:inline-flex;align-items:center;gap:6px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:var(--muted);margin-bottom:12px}
+.btag .pip{width:7px;height:7px;border-radius:2px;background:var(--gold)}
+.btag.quiz .pip{background:var(--sakura)}.btag.matching .pip{background:#8b5cf6}.btag.wrapup .pip{background:var(--green)}.btag.intro .pip{background:#0ea5e9}
+.sec{margin-bottom:12px}.sec h4{margin:0 0 3px;font-size:14px;color:var(--ink)}.sec p{margin:0;color:var(--ink2)}
+.bridge{margin-top:12px;padding:12px 14px;border-radius:10px;background:linear-gradient(135deg,var(--sakura-soft),var(--gold-soft));border:1px solid #f2ddca}
+.bridge .lab{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;color:#a15b0e;display:flex;align-items:center;gap:8px}
+.bridge .strength{display:inline-flex;gap:3px}.bridge .strength i{width:6px;height:6px;border-radius:50%;background:#e6d3bd;display:inline-block}.bridge .strength i.on{background:var(--gold)}
+.bridge p{margin:6px 0 0;color:#6b4a2a}
+.ex{display:flex;gap:12px;padding:9px 0;border-bottom:1px dashed var(--line)}.ex:last-child{border-bottom:0}
+.ex .jp{font-family:var(--jp);font-size:16px;flex:1;color:var(--ink)}.ex .mn{color:var(--muted);flex:1;font-size:14px}
+.q{padding:14px 0;border-bottom:1px dashed var(--line)}.q:last-child{border-bottom:0}
+.q .qt{font-weight:600;margin-bottom:10px;color:var(--ink)}
+.opts{display:grid;gap:6px}
+.opt{padding:9px 13px;border-radius:9px;border:1px solid var(--line);font-family:var(--jp);font-size:14px;display:flex;align-items:center;gap:9px;color:var(--ink2);background:var(--line2);cursor:pointer;transition:.12s;user-select:none}
+.opt::before{content:'○';color:var(--muted);opacity:.45;font-family:var(--ui);font-weight:700}
+.opt:hover{border-color:var(--sakura);background:#fff}
+.q.answered .opt{cursor:default}.q.answered .opt:hover{border-color:var(--line);background:var(--line2)}
+.opt.correct{border:2px solid var(--green);background:#dcfce7;color:#166534;font-weight:700}.opt.correct::before{content:'✓';color:var(--green);opacity:1;font-weight:800}
+.opt.wrong{border:2px solid var(--red);background:#fee2e2;color:#991b1b;font-weight:700}.opt.wrong::before{content:'✗';color:var(--red);opacity:1;font-weight:800}
+.q.answered .opt.correct:hover{border-color:var(--green);background:#dcfce7}.q.answered .opt.wrong:hover{border-color:var(--red);background:#fee2e2}
+.qresult{margin-top:10px;font-weight:800;font-size:14px;display:flex;align-items:center;gap:6px}
+.qresult.ok{color:#15803d}
+.qresult.no{color:#b91c1c}
+.expl{margin-top:9px;font-size:12.5px;color:var(--gold);display:none}.q.answered .expl{display:block}.q.answered .expl:empty{display:none}
+.pairs{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.pair{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:9px 12px;border:1px solid var(--line);border-radius:9px;background:var(--line2)}
+.pair .jp{font-family:var(--jp);font-size:17px;font-weight:500;color:var(--ink)}.pair .rd{font-family:var(--jp);color:var(--muted);font-size:11px}.pair .mn{color:var(--sakura);font-size:13px;font-weight:600}
+.vocab{display:grid;gap:8px}
+.v{display:flex;align-items:center;gap:12px;padding:8px 12px;border:1px solid var(--line);border-radius:9px;background:var(--line2)}
+.v .w{font-family:var(--jp);font-size:17px;font-weight:500;min-width:70px;color:var(--ink)}.v .rd{font-family:var(--jp);color:var(--muted);font-size:12px;min-width:80px}.v .mn{color:var(--ink2)}
+.intro{font-size:15px;color:var(--ink2)}
+.kgrid{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;max-width:420px}
+.kc{aspect-ratio:1/1;display:flex;flex-direction:column;align-items:center;justify-content:center;border:1px solid var(--line);border-radius:9px;background:var(--line2)}
+.kc .k{font-family:var(--jp);font-size:20px;color:var(--ink);line-height:1}.kc .r{font-size:10px;color:var(--muted);margin-top:2px}
+.kc.empty{border:0;background:transparent}.kc.exc{border-color:var(--sakura);background:var(--sakura-soft)}.kc.exc .k{color:var(--sakura)}
+.infocard{display:flex;align-items:center;gap:14px;padding:14px 16px;border:1px solid var(--line);border-radius:11px;background:var(--line2)}
+.infocard .ic-ic{font-size:26px}.infocard b{color:var(--ink)}.infocard .ic-sub{font-size:12px;color:var(--muted);margin-top:2px}
+.pill{border:1px solid var(--gold);background:var(--gold-soft);color:var(--gold);border-radius:999px;padding:6px 14px;font-size:12px;font-weight:800;cursor:pointer;font-family:var(--ui)}
+.pill.on{cursor:default}
+.upgrade{max-width:560px}
+.up-badge{display:inline-block;background:var(--sakura-soft);color:var(--sakura);font-weight:800;font-size:11px;letter-spacing:1px;text-transform:uppercase;padding:5px 12px;border-radius:999px;margin-bottom:12px}
+.upgrade h2{margin:0 0 6px;font-size:24px}
+.upgrade>p{color:var(--ink2);margin:0 0 18px}
+.plans{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px}
+.plan{border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:12px;padding:12px 16px;font-weight:700;cursor:pointer;box-shadow:var(--shadow)}
+.plan:hover{border-color:var(--sakura)}
+.plan.sel{border-color:var(--sakura);background:var(--sakura-soft);color:var(--sakura)}
+.bankbox{border:1px solid var(--line);border-radius:14px;padding:16px 18px;background:var(--line2);margin-bottom:14px}
+.brow{display:flex;justify-content:space-between;gap:12px;padding:7px 0;border-bottom:1px dashed var(--line)}
+.brow:last-child{border-bottom:0}
+.brow span{color:var(--muted);font-size:13px}
+.brow b{color:var(--ink);font-family:var(--mono)}
+.up-note{font-size:12.5px;color:var(--muted);margin:0 0 14px;line-height:1.5}
+.hwgrid{display:flex;flex-wrap:wrap;gap:14px}
+.hwcell{position:relative;width:150px;text-align:center}
+.hwguide{position:absolute;top:0;left:0;width:150px;height:150px;display:flex;align-items:center;justify-content:center;font-family:var(--jp);font-size:104px;color:#efe7e2;pointer-events:none;line-height:1;user-select:none}
+.hwcanvas{width:150px;height:150px;border:1px solid var(--line);border-radius:12px;background:transparent;touch-action:none;cursor:crosshair;position:relative;display:block}
+.hwrom{font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:4px}
+.hwclear{margin-top:4px;border:1px solid var(--line);background:var(--panel);color:var(--muted);border-radius:8px;padding:4px 12px;font-size:11px;cursor:pointer}
+.hwclear:hover{border-color:var(--sakura);color:var(--sakura)}
+.empty{color:var(--muted);text-align:center;padding:80px 20px}.empty .jp{font-family:var(--jp);font-size:40px;color:var(--line);display:block;margin-bottom:10px}
+.err{background:var(--sakura-soft);border:1px solid #f6c9d4;color:#9f1239;padding:14px 18px;border-radius:12px;margin:20px 34px}
+@media(max-width:820px){aside{display:none} main{padding:20px} .hero-jp{font-size:44px} .hero-brand{font-size:28px} .stats .stat:nth-child(n+2){display:none}}
+</style>
+</head>
+<body>
+
+<!-- ═══ НЭВТРЭХ НҮҮР ═══ -->
+<section id="landing">
+  <svg id="scene" viewBox="0 0 800 1200" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#C6E6F1"/><stop offset="0.32" stop-color="#F6DCE6"/><stop offset="0.62" stop-color="#FCE7DF"/><stop offset="1" stop-color="#FBEEE6"/></linearGradient>
+      <linearGradient id="water" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#33406A"/><stop offset="1" stop-color="#1A2038"/></linearGradient>
+      <linearGradient id="fuji" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5A6690"/><stop offset="1" stop-color="#3C4A72"/></linearGradient>
+    </defs>
+    <rect x="0" y="0" width="800" height="1000" fill="url(#sky)"/>
+    <circle cx="400" cy="330" r="150" fill="#FFFFFF" opacity="0.28"/>
+    <path d="M0,880 L110,806 L210,858 L330,792 L430,846 L560,800 L680,852 L800,812 L800,1000 L0,1000 Z" fill="#EEBAC7" opacity="0.55"/>
+    <path d="M0,910 L150,858 L300,900 L470,852 L640,898 L800,862 L800,1000 L0,1000 Z" fill="#E7A6B8" opacity="0.5"/>
+    <path d="M400,616 L300,940 L500,940 Z" fill="url(#fuji)"/>
+    <path d="M400,616 L360,742 Q378,724 392,742 Q404,726 416,744 Q430,726 440,742 Z" fill="#F6F8FF"/>
+    <rect x="0" y="938" width="800" height="262" fill="url(#water)"/>
+    <ellipse cx="400" cy="946" rx="440" ry="16" fill="#3A4670" opacity="0.6"/>
+    <g>
+      <rect x="322" y="946" width="20" height="180" rx="4" fill="#C33A2E"/><rect x="458" y="946" width="20" height="180" rx="4" fill="#C33A2E"/>
+      <rect x="300" y="978" width="200" height="18" rx="3" fill="#B8332A"/>
+      <path d="M280,946 Q400,930 520,946 L520,962 Q400,948 280,962 Z" fill="#C33A2E"/>
+      <rect x="292" y="960" width="216" height="15" rx="3" fill="#AE2E25"/>
+      <rect x="384" y="962" width="32" height="20" rx="2" fill="#E8912E"/>
+      <g><line x1="352" y1="975" x2="352" y2="990" stroke="#7a1e18" stroke-width="2"/><ellipse cx="352" cy="1002" rx="12" ry="15" fill="#E8912E"/></g>
+      <g><line x1="448" y1="975" x2="448" y2="990" stroke="#7a1e18" stroke-width="2"/><ellipse cx="448" cy="1002" rx="12" ry="15" fill="#E8912E"/></g>
+    </g>
+    <g stroke="#6E4B3A" fill="none" stroke-linecap="round">
+      <path d="M-10,20 Q120,70 210,40 M120,55 Q150,90 200,95 M180,48 Q230,60 300,40" stroke-width="7"/>
+      <path d="M810,60 Q670,120 560,110 M640,95 Q610,150 560,170 M600,105 Q560,150 520,150" stroke-width="7"/>
+      <path d="M-10,1120 Q90,1040 170,1050 M70,1075 Q120,1030 150,1000" stroke-width="6"/>
+      <path d="M810,1130 Q700,1050 620,1060 M720,1080 Q670,1030 640,1005" stroke-width="6"/>
+    </g>
+    <g id="deco"></g>
+  </svg>
+
+  <div class="lwrap">
+    <div class="hero-brand">AURA</div>
+    <div class="hero-jp">日本語</div>
+    <div class="hero-tag">Япон хэлийг монголоор — N5-аас N3 хүртэл</div>
+    <div class="login">
+      <div class="authtabs">
+        <button class="atab active" data-m="login">Нэвтрэх</button>
+        <button class="atab" data-m="register">Бүртгүүлэх</button>
+      </div>
+
+      <div id="f-login" class="aform">
+        <input id="li-email" type="email" placeholder="И-мэйл" autocomplete="email">
+        <input id="li-pass" type="password" placeholder="Нууц үг" autocomplete="current-password">
+        <label class="remember"><input type="checkbox" id="li-remember" checked> Намайг сана</label>
+        <button class="btn" id="li-btn">Нэвтрэх</button>
+        <button class="btn ghost" id="li-forgot">Нууц үг мартсан уу?</button>
+      </div>
+
+      <div id="f-register" class="aform hidden">
+        <input id="rg-name" placeholder="Нэр" autocomplete="name">
+        <input id="rg-email" type="email" placeholder="И-мэйл" autocomplete="email">
+        <input id="rg-pass" type="password" placeholder="Нууц үг (6+ тэмдэгт)" autocomplete="new-password">
+        <button class="btn" id="rg-btn">Бүртгүүлэх</button>
+      </div>
+
+      <div id="f-forgot" class="aform hidden">
+        <p class="forgot-p">Бүртгэлтэй и-мэйлээ оруулбал сэргээх холбоос илгээнэ.</p>
+        <input id="fg-email" type="email" placeholder="И-мэйл" autocomplete="email">
+        <button class="btn" id="fg-btn">Сэргээх холбоос илгээх</button>
+        <button class="btn ghost" id="fg-back">← Буцах</button>
+      </div>
+
+      <div id="f-recovery" class="aform hidden">
+        <p class="forgot-p">Шинэ нууц үгээ оруулна уу.</p>
+        <input id="rc-pass" type="password" placeholder="Шинэ нууц үг (6+ тэмдэгт)" autocomplete="new-password">
+        <button class="btn" id="rc-btn">Хадгалах</button>
+      </div>
+
+      <div id="amsg" class="amsg"></div>
+      <button class="btn ghost" id="guest">Зочноор үзэх</button>
+      <button class="btn ghost" id="install-btn" style="display:none">📲 Апп болгон суулгах</button>
+      <div id="ios-hint" style="display:none;font-size:11.5px;color:#8a7e84;margin-top:8px;line-height:1.5">📲 Апп болгож суулгах: доод талын <b>Хуваалцах</b> (⬆️) → <b>«Нүүр дэлгэцэд нэмэх»</b> дарна уу.</div>
+      <div class="lconn"><span id="lconn-dot" style="width:8px;height:8px;border-radius:50%;background:#9A8E94"></span><span id="lconn-t">холбогдож байна…</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ АПП ═══ -->
+<div id="app" class="hidden">
+  <header>
+    <div class="brand"><span class="jp">日本語</span> AURA <small>сургалт</small><span class="hi" id="hi"></span></div>
+    <div class="stats">
+      <div class="stat"><b id="s-mod">–</b><span>модуль</span></div>
+      <div class="stat"><b id="s-les">–</b><span>хичээл</span></div>
+      <div class="stat"><b id="s-blk">–</b><span>блок</span></div>
+      <button class="out" id="admin-btn" style="display:none;border-color:var(--gold);color:var(--gold)">👑 Эзэн самбар</button>
+      <button class="pill" id="premium"></button>
+      <button class="out" id="logout">Гарах</button>
+    </div>
+  </header>
+  <div class="levels" id="levels"></div>
+  <div class="wrap">
+    <aside><input class="search" id="search" placeholder="Хичээл / модуль хайх…"><div id="tree"></div></aside>
+    <main id="main"><div class="empty"><span class="jp">あ</span>Түвшин сонгоно уу</div></main>
+  </div>
+  <div id="err"></div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+// ─────────────────────────────────────────────────────────────────────
+// CONFIG — anon key нь нийтийн (RLS-хамгаалалттай). service_role битгий тавь!
+// ─────────────────────────────────────────────────────────────────────
+const CONFIG = {
+  url: 'https://avrgwlozvvmsctuhxmgu.supabase.co',
+  anon: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF2cmd3bG96dnZtc2N0dWh4bWd1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQyODg1ODksImV4cCI6MjA5OTg2NDU4OX0.N7-ud-ZVewpd4gepec4soVKRvQwP27amgt3eNiSG4_E'
+};
+const db = supabase.createClient(CONFIG.url, CONFIG.anon, {
+  auth:{ persistSession:true, autoRefreshToken:true, detectSessionInUrl:true }
+});
+// ── Төлбөрийн тохиргоо (өөрийнхөөрөө засаарай) ──
+const BILLING = {
+  freeLevels:[],   // JLPT түвшин бүгд Premium; зөвхөн үсгийн үндэс (хирагана/катакана) үнэгүй
+  bank:{ name:'Хаан банк', account:'5301485954', holder:'Б.Энхмаа' },
+  plans:[ {months:1,amount:15000,label:'1 сар'}, {months:3,amount:39000,label:'3 сар'}, {months:12,amount:120000,label:'1 жил'} ]
+};
+// ── Эзэн (админ) мэйл — SQL-ийн admins хүснэгттэй ижил байх ёстой ──
+const ADMIN = { emails:['enhmaabayr181@gmail.com'] };  // ← өөрийн нэвтэрдэг мэйлээ бич
+const $ = s => document.querySelector(s);
+const esc = s => (s==null?'':String(s)).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+const escA = s => esc(s).replace(/"/g,'&quot;');
+const byOrder=(a,b)=>(a.display_order||0)-(b.display_order||0);
+const store={get(k){try{return localStorage.getItem(k)}catch(e){return null}},set(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
+
+let LEVELS=[], MODS=[], LESSONS=[], BLOCKS=[];
+let activeLevel=null, activeLesson=null, userName='', dataReady=false;
+let currentUser=null, SUB=null, payMonths=1, payAmount=0, payRef='';
+
+// ── SVG чимэглэл ──
+function decorateScene(){
+  const deco=document.getElementById('deco'); if(!deco) return;
+  const flower=(x,y,r,c)=>{let s='';for(let i=0;i<5;i++){const a=i*72*Math.PI/180;s+=`<circle cx="${(x+Math.cos(a)*r).toFixed(1)}" cy="${(y+Math.sin(a)*r).toFixed(1)}" r="${(r*0.72).toFixed(1)}" fill="${c}"/>`;}s+=`<circle cx="${x}" cy="${y}" r="${(r*0.42).toFixed(1)}" fill="#FFE08A"/>`;return s;};
+  const cluster=(cx,cy,n,spread)=>{let s='';const cols=['#F7B3CB','#F49CBB','#FBC9D9'];for(let i=0;i<n;i++){const x=cx+(Math.random()-0.5)*spread,y=cy+(Math.random()-0.5)*spread,r=3+Math.random()*3.5;s+=flower(x,y,r,cols[i%3]);}return s;};
+  let html='';
+  [[40,40,26,42],[170,55,22,40],[260,45,20,36],[560,110,26,44],[600,150,20,38],[540,150,18,34],[90,1050,22,40],[150,1005,18,34],[640,1055,22,40],[660,1010,18,34],[330,1055,16,30],[470,1055,16,30]].forEach(a=>html+=cluster(a[0],a[1],a[2],a[3]));
+  const pc=['#F4A6C0','#F7BBCE','#EF93B4'];
+  for(let i=0;i<16;i++){const x=Math.random()*800,y=120+Math.random()*760,rot=Math.random()*360,sc=.7+Math.random()*.8;html+=`<g transform="translate(${x.toFixed(0)},${y.toFixed(0)}) rotate(${rot.toFixed(0)}) scale(${sc.toFixed(2)})" opacity="${(.5+Math.random()*.4).toFixed(2)}"><path d="M0,-6 Q4,-2 3,3 Q0,6 -3,3 Q-4,-2 0,-6 Z" fill="${pc[i%3]}"/></g>`;}
+  deco.innerHTML=html;
+}
+
+// ─────────── AUTH ───────────
+const msg=(t,ok)=>{ const m=$('#amsg'); m.textContent=t||''; m.className='amsg'+(t?(ok?' ok':' err'):''); };
+function showForm(which){
+  ['login','register','forgot','recovery'].forEach(f=>$('#f-'+f).classList.toggle('hidden',f!==which));
+  document.querySelectorAll('.atab').forEach(b=>b.classList.toggle('active',b.dataset.m===which));
+  msg('');
+}
+document.querySelectorAll('.atab').forEach(b=>b.onclick=()=>showForm(b.dataset.m));
+$('#li-forgot').onclick=()=>showForm('forgot');
+$('#fg-back').onclick=()=>showForm('login');
+
+async function doLogin(){
+  const email=$('#li-email').value.trim(), pass=$('#li-pass').value;
+  if(!email||!pass) return msg('И-мэйл ба нууц үгээ оруулна уу.',true);
+  store.set('aura_remember', $('#li-remember').checked?'1':'0');
+  $('#li-btn').disabled=true; msg('Нэвтэрч байна…');
+  const {data,error}=await db.auth.signInWithPassword({email,password:pass});
+  $('#li-btn').disabled=false;
+  if(error) return msg(orMn(error.message),true);
+  enterApp(data.user);
+}
+async function doRegister(){
+  const name=$('#rg-name').value.trim(), email=$('#rg-email').value.trim(), pass=$('#rg-pass').value;
+  if(!name||!email||!pass) return msg('Бүх талбарыг бөглөнө үү.',true);
+  if(pass.length<6) return msg('Нууц үг дор хаяж 6 тэмдэгт байх ёстой.',true);
+  $('#rg-btn').disabled=true; msg('Бүртгэж байна…');
+  const {data,error}=await db.auth.signUp({email,password:pass,options:{data:{name},emailRedirectTo:location.origin}});
+  $('#rg-btn').disabled=false;
+  if(error) return msg(orMn(error.message),true);
+  if(data.session){ enterApp(data.user); }
+  else msg('Бүртгэл үүслээ! И-мэйл рүү явуулсан холбоосоор баталгаажуулаад нэвтэрнэ үү.',false);
+}
+async function doForgot(){
+  const email=$('#fg-email').value.trim();
+  if(!email) return msg('И-мэйлээ оруулна уу.',true);
+  $('#fg-btn').disabled=true; msg('Илгээж байна…');
+  const {error}=await db.auth.resetPasswordForEmail(email,{redirectTo:location.origin});
+  $('#fg-btn').disabled=false;
+  if(error) return msg(orMn(error.message),true);
+  msg('Сэргээх холбоосыг и-мэйлээр илгээлээ. И-мэйлээ шалгаарай.',false);
+}
+async function doRecovery(){
+  const pass=$('#rc-pass').value;
+  if(pass.length<6) return msg('Нууц үг дор хаяж 6 тэмдэгт байх ёстой.',true);
+  $('#rc-btn').disabled=true; msg('Хадгалж байна…');
+  const {error}=await db.auth.updateUser({password:pass});
+  $('#rc-btn').disabled=false;
+  if(error) return msg(orMn(error.message),true);
+  msg('Нууц үг шинэчлэгдлээ. Одоо нэвтэрнэ үү.',false); showForm('login');
+}
+function orMn(m){
+  m=(m||'').toLowerCase();
+  if(m.includes('invalid login')) return 'И-мэйл эсвэл нууц үг буруу байна.';
+  if(m.includes('already registered')||m.includes('already been registered')) return 'Энэ и-мэйл аль хэдийн бүртгэлтэй байна.';
+  if(m.includes('confirm')) return 'И-мэйлээ баталгаажуулна уу.';
+  if(m.includes('rate limit')) return 'Хэт олон удаа оролдлоо. Түр хүлээгээрэй.';
+  return m;
+}
+$('#li-btn').onclick=doLogin;
+$('#rg-btn').onclick=doRegister;
+$('#fg-btn').onclick=doForgot;
+$('#rc-btn').onclick=doRecovery;
+$('#li-pass').addEventListener('keydown',e=>{if(e.key==='Enter')doLogin();});
+$('#rg-pass').addEventListener('keydown',e=>{if(e.key==='Enter')doRegister();});
+$('#guest').onclick=()=>enterApp(null,true);
+
+// нууц үг сэргээх холбоосоор буцаж ирэхэд
+db.auth.onAuthStateChange((event)=>{ if(event==='PASSWORD_RECOVERY') showForm('recovery'); });
+
+async function checkSession(){
+  try{
+    const {data:{session}}=await db.auth.getSession();
+    if(session){
+      if(store.get('aura_remember')==='0'){ await db.auth.signOut(); return; }
+      enterApp(session.user);
+    }
+  }catch(e){}
+}
+
+// ── өгөгдөл ──
+async function loadData(){
+  try{
+    const [lv,md,ls,bl] = await Promise.all([
+      db.from('levels').select('*').order('display_order'),
+      db.from('modules').select('*').order('display_order'),
+      db.from('lessons').select('*').order('display_order'),
+      db.from('lesson_blocks').select('*').order('display_order'),
+    ]);
+    for(const r of [lv,md,ls,bl]) if(r.error) throw r.error;
+    LEVELS=lv.data||[]; MODS=md.data||[]; LESSONS=ls.data||[]; BLOCKS=bl.data||[]; dataReady=true;
+    lconn(true);
+    $('#s-mod').textContent=MODS.length; $('#s-les').textContent=LESSONS.length; $('#s-blk').textContent=BLOCKS.length;
+  }catch(e){ lconn(false); $('#err').innerHTML='<div class="err">Холбогдож чадсангүй: '+esc(e.message||e)+'</div>'; }
+}
+function lconn(ok){ $('#lconn-dot').style.background=ok?'#15A34A':'#E11D48'; $('#lconn-t').textContent=ok?'сервертэй холбогдсон':'холболтын алдаа'; }
+function lessonsOfLevel(id){ return LESSONS.filter(x=>MODS.some(m=>m.level_id===id && m.id===x.module_id)); }
+
+// ── апп руу орох ──
+function enterApp(user,guest){
+  currentUser = guest ? null : user;
+  userName = guest ? 'Зочин' : ((user&&user.user_metadata&&user.user_metadata.name) || (user&&user.email? user.email.split('@')[0]:''));
+  $('#hi').textContent = userName ? ('· Сайн уу, '+userName+'!') : '';
+  $('#landing').classList.add('hidden'); $('#app').classList.remove('hidden');
+  const go=()=>{ updatePremiumPill(); updateAdminBtn(); renderLevels(); if(LEVELS.length){ const f=firstLessonOfLevel(LEVELS[0].id); if(f) selectLesson(f.id); else { activeLevel=LEVELS[0].id; renderNav(); } } };
+  const start=()=>{ fetchSub().then(go); };
+  if(dataReady) start(); else loadData().then(start);
+  window.scrollTo(0,0);
+}
+
+// ── Premium / захиалга ──
+async function fetchSub(){
+  SUB=null; if(!currentUser) return;
+  try{ const {data}=await db.from('subscriptions').select('*').eq('user_id',currentUser.id).maybeSingle(); SUB=data||null; }catch(e){}
+}
+function isPremium(){ if(isAdmin()) return true; return !!(SUB && SUB.status==='active' && SUB.expires_at && new Date(SUB.expires_at)>new Date()); }
+function levelLocked(levelId){
+  const lv=LEVELS.find(l=>l.id===levelId); if(!lv) return false;
+  const code=lv.code||'';
+  if(BILLING.freeLevels.indexOf(code)>=0) return false;   // үнэгүй жагсаалтад бол
+  if(!/^N[1-5]$/i.test(code)) return false;                // JLPT биш (хирагана үндэс г.м.) → үнэгүй
+  return !isPremium();
+}
+// Түвшний эрэмбэ: үндэс эхэнд, дараа нь N5 → N4 → N3 → N2 → N1
+function levelRank(l){ const m=(l.code||'').match(/N([1-5])/i); return m ? (10-parseInt(m[1])) : -1; }
+function orderedLevels(){ return LEVELS.slice().sort((a,b)=> (levelRank(a)-levelRank(b)) || ((a.display_order||0)-(b.display_order||0)) ); }
+function fmt(n){ return (n||0).toLocaleString('en-US'); }
+function updatePremiumPill(){
+  const el=$('#premium'); if(!el) return;
+  if(isAdmin()){ el.textContent='★ Эзэн'; el.title='Эзэн — бүх хандалттай'; el.className='pill on'; el.onclick=null; return; }
+  if(isPremium()){ el.textContent='★ Premium'; el.title='Дуусах: '+new Date(SUB.expires_at).toLocaleDateString(); el.className='pill on'; el.onclick=null; }
+  else { el.textContent='Premium авах'; el.className='pill'; el.onclick=()=>showUpgrade(); }
+}
+function showUpgrade(){
+  activeLesson=null;
+  if(!currentUser){
+    renderNav();
+    $('#main').innerHTML='<div class="upgrade"><div class="up-badge">🔒 Premium</div><h2>Эхлээд бүртгүүлнэ үү</h2><p>N5, N4, N3 түвшинг нээхийн тулд бүртгэл үүсгэж нэвтэрнэ үү.</p><button class="btn" id="go-reg" style="max-width:240px">Бүртгүүлэх / Нэвтрэх</button></div>';
+    $('#go-reg').onclick=logout; return;
+  }
+  renderNav();
+  payRef=currentUser.email || 'user';
+  payMonths=BILLING.plans[0].months; payAmount=BILLING.plans[0].amount;
+  const plans=BILLING.plans.map((p,i)=>'<button class="plan'+(i===0?' sel':'')+'" data-i="'+i+'">'+esc(p.label)+' · '+fmt(p.amount)+'₮</button>').join('');
+  $('#main').innerHTML=
+   '<div class="upgrade"><div class="up-badge">🔒 Premium хичээл</div>'+
+   '<h2>N5 · N4 · N3 түвшинг нээх</h2>'+
+   '<p>Үсгийн үндэс (хирагана · катакана) үнэгүй. N5, N4, N3 бүх түвшинг Premium захиалгаар нээнэ. Хугацаагаа сонгоод банкны данс руу шилжүүлээрэй.</p>'+
+   '<div class="plans">'+plans+'</div>'+
+   '<div class="bankbox">'+
+     '<div class="brow"><span>Банк</span><b>'+esc(BILLING.bank.name)+'</b></div>'+
+     '<div class="brow"><span>Данс</span><b>'+esc(BILLING.bank.account)+'</b></div>'+
+     '<div class="brow"><span>Хүлээн авагч</span><b>'+esc(BILLING.bank.holder)+'</b></div>'+
+     '<div class="brow"><span>Дүн</span><b id="pay-amt">'+fmt(payAmount)+'₮</b></div>'+
+     '<div class="brow"><span>Гүйлгээний утга (таны мэйл)</span><b id="pay-ref">'+esc(payRef)+'</b></div>'+
+   '</div>'+
+   '<p class="up-note">Шилжүүлэхдээ «Гүйлгээний утга»-д өөрийн <b>и-мэйл хаягаа</b> заавал бичээрэй — ингэснээр эзэн таны төлбөрийг таньж, тухайн мэйл рүү эрх олгоно. Шилжүүлсний дараа доорх товчийг дарна уу.</p>'+
+   '<button class="btn" id="paid-btn" style="max-width:260px">Би шилжүүлсэн ✓</button>'+
+   '<div id="pay-msg" class="amsg" style="text-align:left"></div></div>';
+  document.querySelectorAll('.plan').forEach(b=>b.onclick=()=>{
+    document.querySelectorAll('.plan').forEach(x=>x.classList.remove('sel')); b.classList.add('sel');
+    const p=BILLING.plans[+b.dataset.i]; payMonths=p.months; payAmount=p.amount; $('#pay-amt').textContent=fmt(payAmount)+'₮';
+  });
+  $('#paid-btn').onclick=submitPayment;
+}
+async function submitPayment(){
+  const m=$('#pay-msg'); $('#paid-btn').disabled=true; m.textContent='Илгээж байна…'; m.className='amsg';
+  const {error}=await db.from('payment_requests').insert({user_id:currentUser.id,plan:'premium',months:payMonths,amount:payAmount,bank:BILLING.bank.name,reference:payRef,status:'pending'});
+  $('#paid-btn').disabled=false;
+  if(error){ m.textContent='Алдаа: '+esc(error.message); m.className='amsg err'; return; }
+  m.textContent='Хүсэлт илгээгдлээ ✓ Төлбөрийг тань шалгаж баталгаажуулсны дараа Premium автоматаар нээгдэнэ.'; m.className='amsg ok';
+}
+async function logout(){ try{await db.auth.signOut();}catch(e){} $('#app').classList.add('hidden'); $('#landing').classList.remove('hidden'); showForm('login'); window.scrollTo(0,0); }
+$('#logout').onclick=logout;
+
+// ── Эзэн самбар (Admin) ──
+function isAdmin(){ return !!(currentUser && ADMIN.emails.map(e=>String(e).toLowerCase()).indexOf(String(currentUser.email||'').toLowerCase())>=0); }
+function updateAdminBtn(){ const b=$('#admin-btn'); if(!b) return; if(isAdmin()){ b.style.display=''; b.onclick=showAdmin; } else { b.style.display='none'; } }
+function showAdmin(){
+  activeLesson=null; renderNav();
+  $('#main').innerHTML=
+   '<div class="upgrade" style="max-width:660px">'+
+    '<div class="up-badge" style="background:var(--gold-soft);color:var(--gold)">👑 Эзэн самбар</div>'+
+    '<h2>Хандалт удирдах</h2>'+
+    '<div class="block" style="box-shadow:none">'+
+      '<div class="btag"><span class="pip"></span>Мэйлээр эрх олгох</div>'+
+      '<input id="adm-email" class="search" placeholder="Хэрэглэгчийн и-мэйл" style="margin-bottom:10px">'+
+      '<div class="plans" id="adm-plans"><button class="plan sel" data-m="1">1 сар</button><button class="plan" data-m="3">3 сар</button><button class="plan" data-m="12">1 жил</button></div>'+
+      '<button class="btn" id="adm-grant" style="max-width:220px">Эрх олгох</button>'+
+      '<div id="adm-msg" class="amsg" style="text-align:left"></div>'+
+    '</div>'+
+    '<div class="block" style="box-shadow:none">'+
+      '<div class="btag"><span class="pip"></span>Хүлээгдэж буй төлбөрийн хүсэлт</div>'+
+      '<div id="adm-pending" style="color:var(--muted)">Ачаалж байна…</div>'+
+    '</div>'+
+   '</div>';
+  let gm=1;
+  document.querySelectorAll('#adm-plans .plan').forEach(b=>b.onclick=()=>{ document.querySelectorAll('#adm-plans .plan').forEach(x=>x.classList.remove('sel')); b.classList.add('sel'); gm=+b.dataset.m; });
+  $('#adm-grant').onclick=async()=>{
+    const email=$('#adm-email').value.trim(), m=$('#adm-msg');
+    if(!email){ m.textContent='И-мэйл оруулна уу.'; m.className='amsg err'; return; }
+    $('#adm-grant').disabled=true; m.textContent='Олгож байна…'; m.className='amsg';
+    const {data,error}=await db.rpc('admin_grant_access',{p_email:email,p_months:gm});
+    $('#adm-grant').disabled=false;
+    if(error){ m.textContent='Алдаа: '+esc(error.message); m.className='amsg err'; return; }
+    m.textContent=esc(data||'Амжилттай'); m.className='amsg ok'; loadPending();
+  };
+  loadPending();
+}
+async function loadPending(){
+  const box=$('#adm-pending'); if(!box) return;
+  const {data,error}=await db.rpc('admin_list_pending');
+  if(error){ box.innerHTML='<div class="amsg err" style="text-align:left">Алдаа: '+esc(error.message)+'</div>'; return; }
+  if(!data||!data.length){ box.innerHTML='<div style="color:var(--muted)">Хүлээгдэж буй хүсэлт алга.</div>'; return; }
+  box.innerHTML=data.map(r=>'<div class="brow" style="align-items:center"><span>'+esc(r.email||'')+' · '+esc(r.months)+' сар · '+fmt(r.amount)+'₮ · <b style="font-family:var(--mono);color:var(--ink)">'+esc(r.reference||'')+'</b></span><button class="out" data-id="'+esc(r.id)+'" style="border-color:var(--green);color:var(--green)">Зөвшөөрөх</button></div>').join('');
+  box.querySelectorAll('button[data-id]').forEach(b=>b.onclick=async()=>{
+    b.disabled=true; b.textContent='…';
+    const {error}=await db.rpc('admin_approve_request',{p_id:b.getAttribute('data-id')});
+    if(error){ b.textContent='Алдаа'; b.disabled=false; return; }
+    b.textContent='✓ Зөвшөөрсөн'; setTimeout(loadPending,600);
+  });
+}
+
+// ── дээд түвшний товч ──
+function renderLevels(){
+  const box=$('#levels'); box.innerHTML='';
+  orderedLevels().forEach(l=>{
+    if(!MODS.some(m=>m.level_id===l.id)) return;   // хоосон түвшин алгасах
+    const b=document.createElement('button');
+    b.className='lvl'+(l.id===activeLevel?' active':'');
+    b.innerHTML=(levelLocked(l.id)?'🔒 ':'')+esc(l.code||l.name_mn)+' <span class="n">'+MODS.filter(m=>m.level_id===l.id).length+'</span>';
+    b.onclick=()=>jumpLevel(l.id); box.appendChild(b);
+  });
+}
+function jumpLevel(id){ const f=firstLessonOfLevel(id); if(f) selectLesson(f.id); else { activeLevel=id; activeLesson=null; renderLevels(); renderNav(); $('#main').innerHTML='<div class="empty"><span class="jp">…</span>Энэ түвшинд хичээл алга</div>'; } }
+function firstLessonOfLevel(id){ const mods=MODS.filter(m=>m.level_id===id).sort(byOrder); for(const m of mods){ const ls=LESSONS.filter(x=>x.module_id===m.id).sort(byOrder); if(ls.length) return ls[0]; } return null; }
+
+// ── хажуугийн цэс: N5/N4/N3 → модуль → хичээл ──
+function renderNav(){
+  const q=($('#search').value||'').toLowerCase().trim();
+  const tree=$('#tree'); tree.innerHTML='';
+  orderedLevels().forEach(lv=>{
+    const mods=MODS.filter(m=>m.level_id===lv.id).sort(byOrder);
+    if(mods.length===0) return;   // хоосон түвшин (N2/N1 г.м.) харуулахгүй
+    let modsHtml=''; let anyMatch=false;
+    mods.forEach(m=>{
+      let ls=LESSONS.filter(x=>x.module_id===m.id).sort(byOrder); let mm=true;
+      if(q){ mm=(m.title_mn+m.title_native).toLowerCase().includes(q); ls=ls.filter(x=>mm || (x.title_mn+x.title_native).toLowerCase().includes(q)); if(!ls.length && !mm) return; }
+      anyMatch=true;
+      const openMod = q || ls.some(x=>x.id===activeLesson);
+      const lsHtml=ls.map(x=>'<div class="lz'+(x.id===activeLesson?' active':'')+'" data-lesson="'+escA(x.id)+'"><span class="num">'+(x.display_order||'')+'</span>'+esc(x.title_mn)+'<span class="native">'+esc(x.title_native)+'</span></div>').join('');
+      modsHtml+='<div class="mod'+(openMod?' open':'')+'"><div class="mhead"><span class="chev">▸</span>'+esc(m.title_mn)+'<span class="native">'+esc(m.title_native)+'</span></div><div class="lessons">'+lsHtml+'</div></div>';
+    });
+    if(q && !anyMatch) return;
+    const lc=lessonsOfLevel(lv.id).length; const openLvl = (lv.id===activeLevel) || !!q;
+    const g=document.createElement('div'); g.className='lgroup'+(openLvl?' open':'');
+    g.innerHTML='<div class="lghead"><span class="chev">▸</span><span class="code">'+(levelLocked(lv.id)?'🔒 ':'')+esc(lv.code||'')+'</span><span class="lgname">'+esc(lv.name_mn||'')+'</span><span class="cnt">'+mods.length+'м · '+lc+'х</span></div><div class="lgbody">'+modsHtml+'</div>';
+    tree.appendChild(g);
+  });
+  if(!tree.children.length) tree.innerHTML='<div style="color:var(--muted);padding:20px;text-align:center">Илэрц алга</div>';
+}
+$('#tree').addEventListener('click',e=>{
+  const lz=e.target.closest('.lz'); if(lz){ selectLesson(lz.getAttribute('data-lesson')); return; }
+  const mh=e.target.closest('.mhead'); if(mh){ mh.parentElement.classList.toggle('open'); return; }
+  const lh=e.target.closest('.lghead'); if(lh){ lh.parentElement.classList.toggle('open'); return; }
+});
+
+function selectLesson(id){
+  const L=LESSONS.find(x=>String(x.id)===String(id)); if(!L) return;
+  const M=MODS.find(m=>m.id===L.module_id)||{};
+  if(levelLocked(M.level_id)){ activeLevel=M.level_id; renderLevels(); showUpgrade(); return; }
+  activeLesson=L.id; activeLevel=M.level_id||activeLevel;
+  renderLevels(); renderNav();
+  const LV=LEVELS.find(l=>l.id===M.level_id)||{};
+  const blocks=BLOCKS.filter(b=>b.lesson_id===L.id).sort(byOrder);
+  let html='<div class="lessonhdr"><div class="crumb">'+esc(LV.code||LV.name_mn||'')+' › '+esc(M.title_mn||'')+' <span style="font-family:var(--jp)">'+esc(M.title_native||'')+'</span></div><h1>'+esc(L.title_mn)+'</h1><div class="jp">'+esc(L.title_native||'')+'</div><div class="meta"><span>+'+(L.xp_reward||0)+' XP</span><span>'+(L.estimated_minutes||0)+' мин</span><span>'+blocks.length+' блок</span></div></div>';
+  html += blocks.map(b=>renderBlock(b, L)).join('') || '<div class="empty">Блок алга</div>';
+  $('#main').innerHTML=html; window.scrollTo(0,0); initHandwriting();
+}
+function content(b){ let c=b.content; if(typeof c==='string'){try{c=JSON.parse(c)}catch(e){c={}}} return c||{}; }
+
+// ── Кана → монгол галиглал (せんせい → сэнсэй) ──
+const MN_KANA={
+  'あ':'а','い':'и','う':'у','え':'э','お':'о','か':'ка','き':'ки','く':'ку','け':'кэ','こ':'ко',
+  'さ':'са','し':'ши','す':'су','せ':'сэ','そ':'со','た':'та','ち':'чи','つ':'цу','て':'тэ','と':'то',
+  'な':'на','に':'ни','ぬ':'ну','ね':'нэ','の':'но','は':'ха','ひ':'хи','ふ':'фу','へ':'хэ','ほ':'хо',
+  'ま':'ма','み':'ми','む':'му','め':'мэ','も':'мо','や':'я','ゆ':'ю','よ':'ё',
+  'ら':'ра','り':'ри','る':'ру','れ':'рэ','ろ':'ро','わ':'ва','を':'о','ん':'н',
+  'が':'га','ぎ':'ги','ぐ':'гу','げ':'гэ','ご':'го','ざ':'за','じ':'жи','ず':'зу','ぜ':'зэ','ぞ':'зо',
+  'だ':'да','ぢ':'жи','づ':'зу','で':'дэ','ど':'до','ば':'ба','び':'би','ぶ':'бу','べ':'бэ','ぼ':'бо',
+  'ぱ':'па','ぴ':'пи','ぷ':'пу','ぺ':'пэ','ぽ':'по'
+};
+const MN_COMBO={
+  'きゃ':'кя','きゅ':'кю','きょ':'кё','しゃ':'ша','しゅ':'шу','しょ':'шо','ちゃ':'ча','ちゅ':'чу','ちょ':'чо',
+  'にゃ':'ня','にゅ':'ню','にょ':'нё','ひゃ':'хя','ひゅ':'хю','ひょ':'хё','みゃ':'мя','みゅ':'мю','みょ':'мё',
+  'りゃ':'ря','りゅ':'рю','りょ':'рё','ぎゃ':'гя','ぎゅ':'гю','ぎょ':'гё','じゃ':'жа','じゅ':'жу','じょ':'жо',
+  'びゃ':'бя','びゅ':'бю','びょ':'бё','ぴゃ':'пя','ぴゅ':'пю','ぴょ':'пё'
+};
+function kata2hira(s){ return s.replace(/[\u30a1-\u30f6]/g,c=>String.fromCharCode(c.charCodeAt(0)-0x60)); }
+function mnReading(str){
+  if(!str) return '';
+  const s=kata2hira(String(str)); let out='';
+  for(let i=0;i<s.length;i++){
+    const ch=s[i], nx=s[i+1];
+    if(nx && 'ゃゅょ'.indexOf(nx)>=0 && MN_COMBO[ch+nx]){ out+=MN_COMBO[ch+nx]; i++; continue; }
+    if(ch==='っ'){ const t=MN_KANA[nx]||''; if(t) out+=t[0]; continue; }
+    if(ch==='ー'||ch==='ｰ'){ const v=out.slice(-1); if('аиуэо'.indexOf(v)>=0) out+=v; continue; }
+    out += (MN_KANA[ch]!==undefined ? MN_KANA[ch] : ch);
+  }
+  return out.replace(/аи/g,'ай').replace(/эи/g,'эй').replace(/ои/g,'ой').replace(/уи/g,'уй');
+}
+
+const KANA={
+ hiragana:[['あ','a','い','i','う','u','え','e','お','o'],['か','ka','き','ki','く','ku','け','ke','こ','ko'],['さ','sa','し','shi','す','su','せ','se','そ','so'],['た','ta','ち','chi','つ','tsu','て','te','と','to'],['な','na','に','ni','ぬ','nu','ね','ne','の','no'],['は','ha','ひ','hi','ふ','fu','へ','he','ほ','ho'],['ま','ma','み','mi','む','mu','め','me','も','mo'],['や','ya','','','ゆ','yu','','','よ','yo'],['ら','ra','り','ri','る','ru','れ','re','ろ','ro'],['わ','wa','','','','','','','を','wo'],['ん','n','','','','','','','','']],
+ katakana:[['ア','a','イ','i','ウ','u','エ','e','オ','o'],['カ','ka','キ','ki','ク','ku','ケ','ke','コ','ko'],['サ','sa','シ','shi','ス','su','セ','se','ソ','so'],['タ','ta','チ','chi','ツ','tsu','テ','te','ト','to'],['ナ','na','ニ','ni','ヌ','nu','ネ','ne','ノ','no'],['ハ','ha','ヒ','hi','フ','fu','ヘ','he','ホ','ho'],['マ','ma','ミ','mi','ム','mu','メ','me','モ','mo'],['ヤ','ya','','','ユ','yu','','','ヨ','yo'],['ラ','ra','リ','ri','ル','ru','レ','re','ロ','ro'],['ワ','wa','','','','','','','ヲ','wo'],['ン','n','','','','','','','','']]
+};
+function renderKanaChart(kt,exc){
+  const rows=KANA[kt]||KANA.hiragana; exc=exc||[]; let cells='';
+  rows.forEach(r=>{ for(let i=0;i<10;i+=2){ const k=r[i],ro=r[i+1];
+    if(!k) cells+='<div class="kc empty"></div>';
+    else cells+='<div class="kc'+(exc.indexOf(k)>=0?' exc':'')+'"><span class="k">'+k+'</span><span class="r">'+esc(ro)+'</span></div>';
+  }});
+  return '<div class="kgrid">'+cells+'</div>';
+}
+// кана → romaji (KANA хүснэгтээс)
+const KANA_ROMAJI=(()=>{ const m={}; ['hiragana','katakana'].forEach(k=>KANA[k].forEach(r=>{ for(let i=0;i<10;i+=2){ if(r[i]) m[r[i]]=r[i+1]; }})); return m; })();
+function renderHandwriting(c, L){
+  let chars=(c.chars||[]).filter(Boolean);
+  if(!chars.length && L && L.title_native){ chars=(L.title_native.match(/[ぁ-んァ-ヶ]/g)||[]); }
+  const inst=c.instruction_mn||'Доорх бүдэг загварыг дагаж хулгана/хуруугаараа бичиж дасгал хийгээрэй.';
+  let html='<div class="expl" style="display:block;color:var(--muted);margin-bottom:12px">✍️ '+esc(inst)+'</div><div class="hwgrid">';
+  chars.forEach((ch,i)=>{ html+='<div class="hwcell"><div class="hwguide">'+esc(ch)+'</div><canvas class="hwcanvas" width="300" height="300"></canvas><div class="hwrom">'+esc(KANA_ROMAJI[ch]||'')+'</div><button class="hwclear">Цэвэрлэх</button></div>'; });
+  return html+'</div>';
+}
+function initHandwriting(){
+  document.querySelectorAll('.hwcanvas').forEach(cv=>{
+    if(cv.dataset.init) return; cv.dataset.init='1';
+    const ctx=cv.getContext('2d'); ctx.lineWidth=14; ctx.lineCap='round'; ctx.lineJoin='round'; ctx.strokeStyle='#2B2430';
+    let drawing=false, lx=0, ly=0;
+    const pos=e=>{ const r=cv.getBoundingClientRect(); const t=(e.touches&&e.touches[0])?e.touches[0]:e; return [ (t.clientX-r.left)*(cv.width/r.width), (t.clientY-r.top)*(cv.height/r.height) ]; };
+    const start=e=>{ drawing=true; const p=pos(e); lx=p[0]; ly=p[1]; e.preventDefault(); };
+    const move=e=>{ if(!drawing)return; const p=pos(e); ctx.beginPath(); ctx.moveTo(lx,ly); ctx.lineTo(p[0],p[1]); ctx.stroke(); lx=p[0]; ly=p[1]; e.preventDefault(); };
+    const end=()=>{ drawing=false; };
+    cv.addEventListener('mousedown',start); cv.addEventListener('mousemove',move); window.addEventListener('mouseup',end);
+    cv.addEventListener('touchstart',start,{passive:false}); cv.addEventListener('touchmove',move,{passive:false}); cv.addEventListener('touchend',end);
+  });
+  document.querySelectorAll('.hwclear').forEach(b=>{ if(b.dataset.init)return; b.dataset.init='1'; b.onclick=()=>{ const cv=b.parentElement.querySelector('.hwcanvas'); cv.getContext('2d').clearRect(0,0,cv.width,cv.height); }; });
+}
+function renderBlock(b, L){
+  const c=content(b), t=c.type||b.block_type||'';
+  const tag='<div class="btag '+esc(t)+'"><span class="pip"></span>'+esc(b.title_mn||t)+'</div>';
+  let body='';
+  if(t==='explanation'){
+    body=(c.sections||[]).map(s=>'<div class="sec"><h4>'+esc(s.heading_mn)+'</h4><p>'+esc(s.body_mn)+'</p></div>').join('');
+    if(c.mongolian_bridge){ const st=Math.max(0,Math.min(3,c.bridge_strength||0)); const pips=[0,1,2].map(i=>'<i class="'+(i<st?'on':'')+'"></i>').join('');
+      body+='<div class="bridge"><div class="lab">💡 Монголоор бол <span class="strength">'+pips+'</span></div><p>'+esc(c.mongolian_bridge)+'</p></div>'; }
+  }else if(t==='example'){
+    body=(c.examples||[]).map(e=>'<div class="ex"><div class="jp">'+esc(e.jp)+'</div><div class="mn">'+esc(e.mn)+'</div></div>').join('');
+  }else if(t==='quiz'){
+    body=(c.questions||[]).map(q=>{ const opts=(q.options||[]).map(o=>'<div class="opt" data-opt="'+escA(o)+'">'+esc(o)+'</div>').join('');
+      return '<div class="q" data-answer="'+escA(q.answer)+'"><div class="qt">'+esc(q.q)+'</div><div class="opts">'+opts+'</div><div class="expl">'+(q.explain_mn?'💡 '+esc(q.explain_mn):'')+'</div></div>'; }).join('');
+  }else if(t==='matching'){
+    const pairs=(c.pairs||[]).map(p=>'<div class="pair"><div><span class="jp">'+esc(p.jp)+'</span> '+(p.reading&&p.reading!==p.jp?'<span class="rd">'+esc(mnReading(p.reading))+'</span>':'')+'</div><div class="mn">'+esc(p.mn)+'</div></div>').join('');
+    body=(c.instruction_mn?'<div class="expl" style="display:block;color:var(--muted);margin-bottom:10px">'+esc(c.instruction_mn)+'</div>':'')+'<div class="pairs">'+pairs+'</div>';
+  }else if(t==='wrapup'){
+    body='<div class="vocab">'+(c.new_vocabulary||[]).map(v=>'<div class="v"><span class="w">'+esc(v.word)+'</span><span class="rd">'+esc(mnReading(v.reading||v.word))+'</span><span class="mn">'+esc(v.meaning_mn)+'</span></div>').join('')+'</div>';
+  }else if(t==='intro'){
+    body='<div class="intro">'+esc(c.text_mn)+'</div>';
+  }else if(t==='kana_chart'){
+    body=renderKanaChart(c.kana_type,c.highlight_exceptions);
+    if((c.highlight_exceptions||[]).length) body+='<div class="expl" style="display:block;color:var(--sakura);margin-top:10px">Онцгой дуудлагатай: '+esc((c.highlight_exceptions||[]).join(' · '))+'</div>';
+  }else if(t==='review'){
+    body='<div class="infocard"><div class="ic-ic">🔁</div><div><b>Давталт дасгал</b><div class="ic-sub">'+(c.question_count||'')+' асуулт'+(c.random?' · санамсаргүй дараалал':'')+'</div></div></div>';
+  }else if(t==='reading_speed'){
+    body='<div class="infocard"><div class="ic-ic">⏱️</div><div><b>Хурдан унших дасгал</b><div class="ic-sub">'+(c.word_count||'')+' үг · '+(c.time_limit_sec||'')+' секунд</div></div></div>';
+  }else if(t==='handwriting' || /гараар бич/i.test(b.title_mn||'')){
+    body=renderHandwriting(c, L);
+  }else{
+    body='<div class="infocard"><div class="ic-ic">🧩</div><div><b>'+esc(b.title_mn||t||'блок')+'</b><div class="ic-sub">Энэ төрлийн харагдац удахгүй нэмэгдэнэ.</div></div></div>';
+  }
+  if(!body){ body='<div class="infocard"><div class="ic-ic">🧩</div><div><b>'+esc(b.title_mn||t||'блок')+'</b><div class="ic-sub">Энэ хэсэг удахгүй нэмэгдэнэ.</div></div></div>'; }
+  return '<div class="block">'+tag+body+'</div>';
+}
+
+// quiz товшилт: хариулмагц зөв/буруу илэрнэ
+$('#main').addEventListener('click',e=>{
+  const opt=e.target.closest('.opt'); if(!opt) return;
+  const q=opt.closest('.q'); if(!q || q.classList.contains('answered')) return;
+  q.classList.add('answered');
+  const ans=q.getAttribute('data-answer');
+  q.querySelectorAll('.opt').forEach(o=>{ if(o.getAttribute('data-opt')===ans) o.classList.add('correct'); });
+  const ok = opt.getAttribute('data-opt')===ans;
+  if(!ok) opt.classList.add('wrong');
+  let res=q.querySelector('.qresult');
+  if(!res){ res=document.createElement('div'); res.className='qresult'; const ex=q.querySelector('.expl'); q.insertBefore(res, ex||null); }
+  res.className='qresult '+(ok?'ok':'no');
+  res.textContent = ok ? '✓ Зөв байна!' : ('✗ Буруу. Зөв хариу: '+ans);
+});
+$('#search').addEventListener('input',renderNav);
+
+// эхлүүлэх
+// ── PWA: суулгах ба service worker ──
+if('serviceWorker' in navigator){ window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{})); }
+let deferredPrompt=null;
+window.addEventListener('beforeinstallprompt', e=>{ e.preventDefault(); deferredPrompt=e; const b=$('#install-btn'); if(b) b.style.display=''; });
+(function(){
+  const b=$('#install-btn'); if(!b) return;
+  b.onclick=async()=>{ if(deferredPrompt){ deferredPrompt.prompt(); await deferredPrompt.userChoice; deferredPrompt=null; b.style.display='none'; } };
+  const isIOS=/iphone|ipad|ipod/i.test(navigator.userAgent);
+  const standalone=window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
+  if(isIOS && !standalone){ const h=$('#ios-hint'); if(h) h.style.display=''; }
+})();
+
+decorateScene();
+loadData();
+checkSession();
+</script>
+</body>
+</html>
