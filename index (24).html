@@ -1,0 +1,1435 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>AURA 日本語 — Япон хэл сурах</title>
+<meta name="theme-color" content="#E11D48">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="AURA">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FBF7F4; --panel:#FFFFFF; --panel2:#FCEFF4; --line:#EFE6E9; --line2:#F6F1F3;
+  --ink:#241F2B; --ink2:#57505F; --muted:#8E8894;
+  --sakura:#E35B8C; --sakura-soft:#FDE8EF; --sakura-deep:#C7407A;
+  --gold:#D9A25C; --gold-soft:#FBF0DE;
+  --green:#5FA33C; --red:#E5484D;
+  --indigo:#4C5CA8; --indigo-soft:#ECEEFA;
+  --glass:rgba(255,255,255,.58); --glass-strong:rgba(255,255,255,.80); --glass-brd:rgba(255,255,255,.70);
+  --blur:saturate(180%) blur(22px);
+  --r:20px; --r-sm:14px; --r-lg:28px; --r-xl:34px;
+  --shadow:0 2px 14px rgba(120,80,100,.06);
+  --shadow2:0 16px 44px rgba(120,80,100,.14);
+  --shadow3:0 26px 70px rgba(120,80,100,.20);
+  --spring:cubic-bezier(.34,1.56,.64,1); --ease:cubic-bezier(.4,0,.2,1);
+  --jp:'Noto Sans JP',sans-serif; --ui:'Inter',sans-serif; --mono:'JetBrains Mono',monospace;
+  --tabh:74px;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;height:100%}
+body{
+  background:#FBF7F4;
+  background-image:linear-gradient(rgba(255,251,248,.60), rgba(255,250,247,.68)), url('bg-app.jpg');
+  background-size:cover;background-position:center top;background-attachment:fixed;background-repeat:no-repeat;
+  color:var(--ink);font-family:var(--ui);font-size:16px;line-height:1.62;
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+}
+body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:radial-gradient(120% 70% at 50% 0%, transparent 42%, rgba(90,60,80,.10) 100%)}
+#app{position:relative;z-index:1;padding-top:env(safe-area-inset-top,0px);padding-bottom:calc(var(--tabh) + env(safe-area-inset-bottom,0px))}
+a{color:var(--sakura)}
+.hidden{display:none !important}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes pop{0%{transform:scale(.82)}62%{transform:scale(1.06)}100%{transform:scale(1)}}
+@keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+@keyframes glowPulse{0%,100%{box-shadow:0 0 0 0 rgba(227,91,140,.28)}50%{box-shadow:0 0 0 10px rgba(227,91,140,0)}}
+@keyframes sheen{0%{transform:translateX(-120%)}100%{transform:translateX(240%)}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition-duration:.01ms!important}}
+
+/* ══════════ LANDING ══════════ */
+#landing{position:relative;min-height:100vh;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 20px;background:linear-gradient(180deg,rgba(255,247,242,.28),rgba(60,40,55,.10) 50%,rgba(38,26,42,.32)),url('bg-landing.jpg') center/cover no-repeat}
+#scene{display:none}
+.lwrap{position:relative;z-index:2;text-align:center;width:100%;max-width:420px;animation:fadeUp .7s var(--ease) both}
+.hero-jp{font-family:var(--jp);font-weight:900;font-size:54px;letter-spacing:4px;line-height:1;color:#fff;text-shadow:0 3px 26px rgba(80,20,50,.5)}
+.hero-brand{font-weight:900;font-size:32px;letter-spacing:10px;margin:8px 0 4px;color:#fff;text-shadow:0 2px 20px rgba(60,20,45,.55)}
+.hero-tag{color:rgba(255,255,255,.92);font-weight:600;letter-spacing:.3px;margin-bottom:26px;text-shadow:0 2px 14px rgba(50,20,40,.55);font-size:13.5px}
+.login{background:var(--glass-strong);backdrop-filter:var(--blur);-webkit-backdrop-filter:var(--blur);border:1px solid var(--glass-brd);border-radius:var(--r-xl);padding:26px;box-shadow:var(--shadow3);text-align:left}
+.authtabs{display:flex;gap:4px;margin-bottom:20px;background:rgba(244,236,240,.85);padding:5px;border-radius:16px}
+.atab{flex:1;padding:11px;border:0;background:transparent;border-radius:12px;font-weight:700;color:var(--muted);cursor:pointer;font-family:var(--ui);font-size:14px;transition:.25s var(--ease)}
+.atab.active{background:#fff;color:var(--sakura);box-shadow:var(--shadow)}
+.aform{display:flex;flex-direction:column;gap:12px}
+.login input{width:100%;padding:15px 17px;border-radius:16px;border:1px solid var(--line);background:rgba(255,255,255,.9);color:var(--ink);font-family:var(--ui);font-size:16px;transition:.2s}
+.login input:focus{outline:none;border-color:var(--sakura);box-shadow:0 0 0 4px var(--sakura-soft)}
+.remember{display:flex;align-items:center;gap:9px;font-size:12.5px;color:var(--muted);cursor:pointer;margin:-2px 0}
+.remember input{width:auto;margin:0}
+.btn{width:100%;padding:16px;border:0;border-radius:17px;cursor:pointer;font-family:var(--ui);font-weight:800;font-size:16px;letter-spacing:.2px;color:#fff;background:linear-gradient(135deg,var(--sakura),#F085AC);box-shadow:0 12px 30px rgba(227,91,140,.36);transition:transform .22s var(--spring),box-shadow .22s,filter .2s}
+.btn:hover{filter:brightness(1.04);transform:translateY(-2px);box-shadow:0 16px 38px rgba(227,91,140,.44)}
+.btn:active{transform:scale(.97)}
+.btn[disabled]{opacity:.6;cursor:default;transform:none;box-shadow:none}
+.btn.ghost{background:transparent;color:rgba(90,70,85,.92);box-shadow:none;font-weight:600;font-size:13px;padding:10px}
+.btn.ghost:hover{color:var(--sakura);transform:none;filter:none}
+.forgot-p{font-size:12.5px;color:var(--muted);margin:0 0 2px}
+.amsg{margin-top:11px;font-size:12.5px;min-height:15px;text-align:center}
+.amsg.ok{color:var(--green)}.amsg.err{color:var(--sakura-deep)}
+.lconn{margin-top:16px;font-size:11px;color:rgba(255,255,255,.85);display:flex;align-items:center;gap:7px;justify-content:center;text-shadow:0 1px 8px rgba(0,0,0,.4)}
+
+/* ══════════ HEADER (floating glass) ══════════ */
+header{position:sticky;top:10px;z-index:30;display:flex;align-items:center;gap:12px;
+  margin:10px 12px 0;padding:11px 14px;border-radius:22px;
+  background:rgba(255,255,255,.66);backdrop-filter:var(--blur);-webkit-backdrop-filter:var(--blur);
+  border:1px solid var(--glass-brd);box-shadow:var(--shadow2)}
+.brand{font-weight:900;letter-spacing:.4px;display:flex;align-items:center;gap:9px;color:var(--ink);font-size:17px}
+.brand .jp{font-family:var(--jp);font-weight:900;color:var(--sakura);font-size:15px}
+.brand small{display:none}
+.hi{margin-left:4px;color:var(--muted);font-size:12px;font-weight:600}
+.stats{margin-left:auto;display:flex;gap:8px;align-items:center}
+.stat{display:none}
+.stat.chip{display:flex;align-items:center;gap:5px;background:var(--glass);border:1px solid var(--glass-brd);
+  border-radius:999px;padding:6px 12px;box-shadow:var(--shadow)}
+.stat.chip b{font-family:var(--mono);color:var(--sakura);font-size:13px;line-height:1}
+.stat.chip span{color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:.8px}
+.avatar-btn{width:40px;height:40px;flex:none;border-radius:50%;border:1px solid var(--glass-brd);
+  background:linear-gradient(135deg,var(--sakura),var(--gold));color:#fff;font-size:17px;cursor:pointer;
+  box-shadow:0 6px 16px rgba(227,91,140,.30);transition:transform .22s var(--spring)}
+.avatar-btn:hover{transform:translateY(-2px) scale(1.04)}
+.avatar-btn:active{transform:scale(.93)}
+.out{border:1px solid var(--line);background:var(--glass);backdrop-filter:var(--blur);-webkit-backdrop-filter:var(--blur);
+  color:var(--ink2);border-radius:13px;padding:10px 15px;font-size:13px;font-weight:700;cursor:pointer;transition:.2s var(--ease);font-family:var(--ui)}
+.out:hover{border-color:var(--sakura);color:var(--sakura);transform:translateY(-1px);box-shadow:var(--shadow)}
+.out:active{transform:scale(.97)}
+
+/* ══════════ LEVEL SEGMENTS ══════════ */
+.levels{display:flex;gap:8px;padding:14px 16px 6px;overflow-x:auto;scrollbar-width:none}
+.levels::-webkit-scrollbar{display:none}
+.lvl{border:1px solid var(--glass-brd);background:var(--glass);backdrop-filter:var(--blur);-webkit-backdrop-filter:var(--blur);
+  color:var(--ink);padding:10px 18px;border-radius:999px;cursor:pointer;font-weight:700;white-space:nowrap;
+  display:flex;align-items:center;gap:8px;transition:.22s var(--spring);box-shadow:var(--shadow);font-size:14px}
+.lvl:hover{transform:translateY(-2px);border-color:var(--sakura);color:var(--sakura)}
+.lvl.active{background:linear-gradient(135deg,var(--sakura),#F085AC);border-color:transparent;color:#fff;box-shadow:0 10px 24px rgba(227,91,140,.34)}
+.lvl.active:hover{color:#fff}
+.lvl .n{font-family:var(--mono);opacity:.7;font-size:12px}
+
+/* ══════════ LAYOUT ══════════ */
+.wrap{display:flex;min-height:60vh;gap:0}
+aside{width:322px;flex:none;padding:16px;overflow-y:auto;max-height:calc(100vh - 150px);position:sticky;top:150px}
+.search{width:100%;padding:13px 16px;border-radius:16px;border:1px solid var(--glass-brd);background:var(--glass-strong);
+  backdrop-filter:var(--blur);-webkit-backdrop-filter:var(--blur);color:var(--ink);font-family:var(--ui);font-size:15px;
+  margin-bottom:14px;box-shadow:var(--shadow);transition:.2s}
+.search::placeholder{color:var(--muted)}
+.search:focus{outline:none;border-color:var(--sakura);box-shadow:0 0 0 4px var(--sakura-soft)}
+.lgroup{margin-bottom:12px;border:1px solid var(--glass-brd);border-radius:var(--r);overflow:hidden;
+  background:var(--glass);backdrop-filter:var(--blur);-webkit-backdrop-filter:var(--blur);box-shadow:var(--shadow);transition:.22s var(--ease)}
+.lgroup:hover{box-shadow:var(--shadow2)}
+.lghead{display:flex;align-items:center;gap:9px;padding:15px 16px;cursor:pointer;font-weight:800;
+  background:linear-gradient(135deg,rgba(253,232,239,.72),rgba(251,240,222,.72));transition:.2s}
+.lghead:hover{filter:brightness(1.03)}
+.lghead .code{font-family:var(--mono);color:var(--sakura-deep);letter-spacing:.5px;font-size:14px}
+.lghead .lgname{font-size:12.5px;font-weight:600;color:var(--ink2)}
+.lghead .cnt{margin-left:auto;font-size:10.5px;color:var(--muted);font-family:var(--mono)}
+.lgbody{display:none;padding:10px}
+.lgroup.open .lgbody{display:block;animation:fadeIn .35s var(--ease) both}
+.lgroup.open .lghead .chev{transform:rotate(90deg)}
+.chev{transition:.25s var(--spring);color:var(--muted);display:inline-block;font-size:11px}
+.mod{margin-bottom:4px}
+.mod>.mhead{display:flex;align-items:center;gap:9px;padding:11px 12px;border-radius:13px;cursor:pointer;
+  font-weight:700;font-size:13.5px;color:var(--ink);transition:.18s var(--ease)}
+.mod>.mhead:hover{background:rgba(253,232,239,.85)}
+.mod>.mhead .native{font-family:var(--jp);color:var(--gold);font-weight:700;font-size:11px;margin-left:auto}
+.mod .lessons{margin:3px 0 8px 12px;border-left:2px solid var(--line);padding-left:12px;display:none}
+.mod.open .lessons{display:block;animation:fadeIn .3s both}
+.mod.open>.mhead .chev{transform:rotate(90deg)}
+.lz{padding:10px 12px;border-radius:12px;cursor:pointer;font-size:13.5px;color:var(--muted);
+  display:flex;align-items:center;gap:9px;transition:.18s var(--ease)}
+.lz:hover{background:rgba(253,232,239,.85);color:var(--ink)}
+.lz.active{background:linear-gradient(135deg,var(--sakura),#F085AC);color:#fff;font-weight:700;
+  box-shadow:0 6px 18px rgba(227,91,140,.3);animation:glowPulse 2.6s ease-in-out infinite}
+.lz.active .num,.lz.active .native{opacity:.85;color:#fff}
+.lz .num{font-family:var(--mono);font-size:11px;opacity:.6;flex:none;width:17px}
+.lz .native{font-family:var(--jp);margin-left:auto;font-size:11px;opacity:.6}
+.side-actions{margin-top:18px;padding-top:16px;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:8px}
+.side-actions .out{width:100%;text-align:left}
+.side-counts{display:flex;gap:12px;flex-wrap:wrap;font-size:11px;color:var(--muted);margin-top:6px;padding:0 4px}
+.side-counts b{font-family:var(--mono);color:var(--ink2)}
+.ver{font-size:10px;color:var(--muted);opacity:.6;padding:2px 4px;letter-spacing:.6px}
+
+/* ══════════ MAIN ══════════ */
+main{flex:1;padding:22px 30px 40px;overflow-x:hidden;max-width:980px;animation:fadeUp .4s var(--ease) both}
+
+/* ══════════ HOME (bento) ══════════ */
+.home{max-width:820px;animation:fadeUp .45s var(--ease) both}
+.greet{margin:2px 0 22px}
+.greet h1{margin:0;font-size:32px;font-weight:900;letter-spacing:-.7px;line-height:1.2}
+.greet p{margin:6px 0 0;color:var(--ink2);font-size:14.5px}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;margin-bottom:20px}
+.kpi{background:var(--glass);backdrop-filter:var(--blur);-webkit-backdrop-filter:var(--blur);border:1px solid var(--glass-brd);
+  border-radius:var(--r);padding:16px 14px;text-align:center;box-shadow:var(--shadow);transition:.24s var(--spring)}
+.kpi:hover{transform:translateY(-3px);box-shadow:var(--shadow2)}
+.kpi .kv{font-family:var(--mono);font-size:24px;font-weight:800;color:var(--sakura);line-height:1.1}
+.kpi .kl{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.9px;margin-top:4px}
+.continue-card{position:relative;overflow:hidden;background:linear-gradient(135deg,rgba(227,91,140,.95),rgba(217,162,92,.92));
+  color:#fff;border-radius:var(--r-lg);padding:24px;box-shadow:0 18px 44px rgba(227,91,140,.32);margin-bottom:22px;
+  animation:fadeUp .5s var(--ease) both}
+.continue-card::before{content:'';position:absolute;top:0;left:0;width:40%;height:100%;pointer-events:none;
+  background:linear-gradient(100deg,transparent,rgba(255,255,255,.26),transparent);animation:sheen 5s ease-in-out infinite}
+.cc-lab{font-size:11px;text-transform:uppercase;letter-spacing:1.4px;opacity:.88;font-weight:800}
+.continue-card h2{margin:9px 0 2px;font-size:23px;font-weight:800;letter-spacing:-.3px;position:relative}
+.cc-jp{font-family:var(--jp);opacity:.9;font-size:14px}
+.prog{height:8px;background:rgba(255,255,255,.3);border-radius:999px;overflow:hidden;margin:16px 0 8px}
+.prog-bar{height:100%;background:#fff;border-radius:999px;transition:width .9s var(--ease)}
+.cc-sub{font-size:12.5px;opacity:.92}
+.cc-btn{margin-top:16px;width:100%;background:#fff;color:var(--sakura-deep);border:0;border-radius:16px;padding:15px;
+  font-weight:800;font-size:15.5px;cursor:pointer;font-family:var(--ui);box-shadow:0 8px 22px rgba(0,0,0,.14);
+  transition:transform .22s var(--spring);position:relative}
+.cc-btn:hover{transform:translateY(-2px)}.cc-btn:active{transform:scale(.97)}
+.bento{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.bcard{background:var(--glass);backdrop-filter:var(--blur);-webkit-backdrop-filter:var(--blur);border:1px solid var(--glass-brd);
+  border-radius:var(--r);padding:20px 18px;cursor:pointer;box-shadow:var(--shadow);transition:.26s var(--spring);
+  position:relative;overflow:hidden;animation:fadeUp .45s var(--ease) both;text-align:left}
+.bcard:hover{transform:translateY(-4px);box-shadow:var(--shadow2);border-color:rgba(227,91,140,.4)}
+.bcard:active{transform:scale(.98)}
+.bcard .bi{font-size:30px;display:block;margin-bottom:10px;line-height:1}
+.bcard b{display:block;font-size:15.5px;font-weight:800;letter-spacing:-.2px;color:var(--ink)}
+.bcard span{display:block;font-size:12px;color:var(--muted);margin-top:2px}
+.bcard.wide{grid-column:span 2}
+.sect-t{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:1.4px;color:var(--muted);margin:24px 0 12px}
+.rd-row{display:flex;align-items:center;gap:14px;padding:15px 17px;border:1px solid var(--glass-brd);border-radius:var(--r);
+  margin-bottom:10px;background:var(--glass);backdrop-filter:var(--blur);-webkit-backdrop-filter:var(--blur);box-shadow:var(--shadow)}
+.rd-code{font-family:var(--mono);font-weight:800;color:var(--sakura-deep);width:74px;flex:none;font-size:13px}
+.rd-bar{flex:1;height:9px;background:var(--line2);border-radius:999px;overflow:hidden}
+.rd-fill{height:100%;background:linear-gradient(90deg,var(--sakura),var(--gold));border-radius:999px}
+.rd-n{font-family:var(--mono);font-size:11.5px;color:var(--muted);flex:none}
+
+/* ══════════ LESSON ══════════ */
+.lessonhdr{margin-bottom:24px}
+.lessonhdr .crumb{color:var(--muted);font-size:12px;letter-spacing:.4px;margin-bottom:8px;font-weight:600}
+.lessonhdr h1{margin:0;font-size:30px;font-weight:900;color:var(--ink);letter-spacing:-.7px;line-height:1.2}
+.lessonhdr .jp{font-family:var(--jp);color:var(--gold);font-weight:700;font-size:16px;margin-top:4px}
+.lessonhdr .meta{margin-top:12px;display:flex;gap:8px;flex-wrap:wrap;color:var(--muted);font-size:12px;font-family:var(--mono)}
+.block{background:var(--glass);backdrop-filter:var(--blur);-webkit-backdrop-filter:var(--blur);border:1px solid var(--glass-brd);
+  border-radius:var(--r-lg);padding:24px;margin-bottom:18px;box-shadow:var(--shadow);animation:fadeUp .45s var(--ease) both;transition:.24s var(--ease)}
+.block:hover{box-shadow:var(--shadow2)}
+.block .btag{display:inline-flex;align-items:center;gap:8px;font-size:10.5px;font-weight:800;text-transform:uppercase;
+  letter-spacing:1.5px;color:var(--muted);margin-bottom:16px}
+.btag .pip{width:9px;height:9px;border-radius:4px;background:var(--gold)}
+.btag.quiz .pip{background:var(--sakura)}.btag.matching .pip{background:var(--indigo)}
+.btag.wrapup .pip{background:var(--green)}.btag.intro .pip{background:#0ea5e9}
+.sec{margin-bottom:12px;padding:16px 18px;border-radius:var(--r-sm);background:rgba(255,255,255,.55);
+  border:1px solid rgba(255,255,255,.65);border-left:3px solid var(--sakura)}
+.sec:last-child{margin-bottom:0}
+.sec h4{margin:0 0 5px;font-size:15.5px;color:var(--ink);font-weight:800}
+.sec p{margin:0;color:var(--ink2);font-size:15px}
+.bridge{margin-top:16px;padding:18px;border-radius:var(--r-sm);background:linear-gradient(135deg,var(--gold-soft),var(--sakura-soft));border:1px solid rgba(233,205,170,.7)}
+.bridge .lab{font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:1.6px;color:#A3660F;display:flex;align-items:center;gap:8px}
+.bridge .strength{display:inline-flex;gap:3px}
+.bridge .strength i{width:6px;height:6px;border-radius:50%;background:#e8d6c0;display:inline-block}
+.bridge .strength i.on{background:var(--gold)}
+.bridge p{margin:8px 0 0;color:#6B4A2A;font-size:14.5px}
+.ex{display:flex;gap:14px;align-items:flex-start;padding:14px 16px;border-radius:var(--r-sm);
+  background:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.65);margin-bottom:9px;transition:.2s var(--ease)}
+.ex:last-child{margin-bottom:0}
+.ex:hover{background:#fff;box-shadow:var(--shadow)}
+.ex .jp{font-family:var(--jp);font-size:18px;flex:1;color:var(--ink);line-height:1.6}
+.ex .mn{color:var(--ink2);flex:1;font-size:14.5px}
+
+/* ══════════ QUIZ ══════════ */
+.q{padding:18px 0;border-bottom:1px dashed var(--line)}.q:last-child{border-bottom:0}
+.q .qt{font-weight:800;margin-bottom:14px;color:var(--ink);font-size:16px;letter-spacing:-.2px}
+.opts{display:grid;gap:10px}
+.opt{padding:16px 18px;border-radius:16px;border:1.5px solid var(--line);font-family:var(--jp);font-size:16px;
+  display:flex;align-items:center;gap:12px;color:var(--ink2);background:rgba(255,255,255,.62);cursor:pointer;
+  transition:.2s var(--spring);user-select:none;min-height:54px}
+.opt::before{content:'○';color:var(--muted);opacity:.4;font-family:var(--ui);font-weight:700}
+.opt:hover{border-color:var(--sakura);background:#fff;transform:translateY(-2px);box-shadow:var(--shadow2)}
+.opt:active{transform:scale(.98)}
+.q.answered .opt{cursor:default}.q.answered .opt:hover{transform:none;box-shadow:none}
+.opt.correct{border:2px solid var(--green);background:#EAF6E2;color:#3D6B1F;font-weight:800;animation:pop .42s var(--spring)}
+.opt.correct::before{content:'✓';color:var(--green);opacity:1;font-weight:800}
+.opt.wrong{border:2px solid var(--red);background:#FDEBEB;color:#A3272B;font-weight:800}
+.opt.wrong::before{content:'✗';color:var(--red);opacity:1;font-weight:800}
+.q.answered .opt.correct:hover{border-color:var(--green);background:#EAF6E2}
+.q.answered .opt.wrong:hover{border-color:var(--red);background:#FDEBEB}
+.qresult{margin-top:14px;font-weight:800;font-size:14.5px;display:flex;align-items:center;gap:7px;
+  padding:12px 16px;border-radius:14px;animation:fadeUp .35s var(--ease) both}
+.qresult.ok{color:#3D6B1F;background:#EAF6E2}
+.qresult.no{color:#A3272B;background:#FDEBEB}
+.expl{margin-top:11px;font-size:13px;color:#A3660F;display:none;padding:12px 16px;background:var(--gold-soft);border-radius:14px}
+.q.answered .expl{display:block;animation:fadeIn .35s both}.q.answered .expl:empty{display:none}
+
+/* ══════════ MATCHING / VOCAB / KANA ══════════ */
+.pairs{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px}
+.pair{display:flex;flex-direction:column;gap:3px;padding:16px;border:1px solid rgba(255,255,255,.65);border-radius:var(--r-sm);
+  background:rgba(255,255,255,.6);transition:.22s var(--spring)}
+.pair:hover{border-color:var(--sakura);box-shadow:var(--shadow2);transform:translateY(-2px)}
+.pair .jp{font-family:var(--jp);font-size:22px;font-weight:600;color:var(--ink);line-height:1.2}
+.pair .rd{font-family:var(--mono);color:var(--muted);font-size:11.5px}
+.pair .mn{color:var(--sakura-deep);font-size:14px;font-weight:700;margin-top:2px}
+.vocab{display:grid;grid-template-columns:repeat(auto-fill,minmax(158px,1fr));gap:11px}
+.v{display:flex;flex-direction:column;align-items:flex-start;gap:2px;padding:18px 16px;
+  border:1px solid rgba(255,255,255,.65);border-radius:var(--r);background:rgba(255,255,255,.62);
+  box-shadow:var(--shadow);transition:.24s var(--spring);position:relative;overflow:hidden}
+.v:hover{border-color:var(--sakura);transform:translateY(-3px);box-shadow:var(--shadow2);background:#fff}
+.v .w{font-family:var(--jp);font-size:26px;font-weight:600;color:var(--ink);line-height:1.25;min-width:0;cursor:pointer}
+.v .rd{font-family:var(--mono);color:var(--muted);font-size:12px;min-width:0}
+.v .mn{color:var(--ink2);font-size:14.5px;font-weight:600;margin-top:4px}
+.intro{font-size:16px;color:var(--ink2)}
+.kgrid{display:grid;grid-template-columns:repeat(5,1fr);gap:9px;max-width:470px}
+.kc{aspect-ratio:1/1;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  border:1px solid rgba(255,255,255,.7);border-radius:var(--r-sm);background:rgba(255,255,255,.62);
+  box-shadow:var(--shadow);transition:.22s var(--spring)}
+.kc.kana-cell:hover{border-color:var(--sakura);background:#fff;transform:translateY(-3px) scale(1.04);box-shadow:var(--shadow2)}
+.kc.kana-cell:active{transform:scale(.94)}
+.kc .k{font-family:var(--jp);font-size:23px;color:var(--ink);line-height:1}
+.kc .r{font-size:10px;color:var(--muted);margin-top:4px;font-family:var(--mono)}
+.kc.empty{border:0;background:transparent;box-shadow:none}
+.kc.exc{border-color:var(--sakura);background:var(--sakura-soft)}.kc.exc .k{color:var(--sakura-deep)}
+.infocard{display:flex;align-items:center;gap:16px;padding:20px;border:1px solid rgba(255,255,255,.65);
+  border-radius:var(--r);background:rgba(255,255,255,.55)}
+.infocard .ic-ic{font-size:30px}.infocard b{color:var(--ink);font-size:15.5px}
+.infocard .ic-sub{font-size:12.5px;color:var(--muted);margin-top:2px}
+
+/* ══════════ PILL / UPGRADE ══════════ */
+.pill{border:1px solid rgba(217,162,92,.6);background:var(--gold-soft);color:#A3660F;border-radius:999px;
+  padding:8px 15px;font-size:12px;font-weight:800;cursor:pointer;font-family:var(--ui);transition:.22s var(--spring);white-space:nowrap}
+.pill:hover{transform:translateY(-1px);box-shadow:var(--shadow)}
+.pill.on{cursor:default}
+.upgrade{max-width:640px;animation:fadeUp .45s var(--ease) both}
+.up-badge{display:inline-block;background:var(--sakura-soft);color:var(--sakura-deep);font-weight:800;font-size:11px;
+  letter-spacing:1.2px;text-transform:uppercase;padding:7px 15px;border-radius:999px;margin-bottom:16px}
+.upgrade h2{margin:0 0 8px;font-size:28px;letter-spacing:-.6px;font-weight:900}
+.upgrade>p{color:var(--ink2);margin:0 0 20px}
+.plans{display:flex;gap:11px;flex-wrap:wrap;margin-bottom:20px}
+.plan{border:1px solid var(--glass-brd);background:var(--glass);backdrop-filter:var(--blur);-webkit-backdrop-filter:var(--blur);
+  color:var(--ink);border-radius:var(--r);padding:16px 20px;font-weight:700;cursor:pointer;box-shadow:var(--shadow);transition:.22s var(--spring)}
+.plan:hover{border-color:var(--sakura);transform:translateY(-3px)}
+.plan.sel{border-color:var(--sakura);background:var(--sakura-soft);color:var(--sakura-deep);box-shadow:var(--shadow2)}
+.bankbox{border:1px solid var(--glass-brd);border-radius:var(--r);padding:20px 22px;background:rgba(255,255,255,.6);margin-bottom:16px;box-shadow:var(--shadow)}
+.brow{display:flex;justify-content:space-between;gap:12px;padding:11px 0;border-bottom:1px dashed var(--line)}
+.brow:last-child{border-bottom:0}
+.brow span{color:var(--muted);font-size:13px}
+.brow b{color:var(--ink);font-family:var(--mono)}
+.up-note{font-size:13px;color:var(--muted);margin:0 0 16px;line-height:1.6}
+
+/* ══════════ LEADERBOARD / FEED ══════════ */
+.lb-row{display:flex;align-items:center;gap:13px;padding:15px 17px;border:1px solid var(--glass-brd);border-radius:var(--r);
+  margin-bottom:10px;background:var(--glass);backdrop-filter:var(--blur);-webkit-backdrop-filter:var(--blur);
+  box-shadow:var(--shadow);transition:.22s var(--spring);animation:fadeUp .4s var(--ease) both}
+.lb-row:hover{transform:translateY(-2px);box-shadow:var(--shadow2)}
+.lb-row.me{border-color:var(--sakura);background:var(--sakura-soft)}
+.lb-rank{font-weight:800;width:36px;text-align:center;color:var(--muted);font-size:18px}
+.lb-rank.top{color:var(--gold)}
+.lb-av{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--sakura),var(--gold));color:#fff;
+  display:flex;align-items:center;justify-content:center;font-weight:800;flex:none;box-shadow:0 6px 16px rgba(227,91,140,.28)}
+.lb-name{flex:1;font-weight:700;min-width:0}
+.lb-name .lb-sub{font-size:12px;color:var(--muted);font-weight:500}
+.lb-xp{font-family:var(--mono);color:var(--sakura);font-weight:800;white-space:nowrap}
+.feed-item{display:flex;gap:13px;align-items:flex-start;padding:14px 0;border-bottom:1px dashed var(--line)}
+.feed-item:last-child{border-bottom:0}
+.feed-av{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--sakura),var(--gold));color:#fff;
+  display:flex;align-items:center;justify-content:center;font-weight:800;flex:none;font-size:15px}
+.feed-b{flex:1}.feed-b b{font-size:14.5px}.feed-t{font-size:13.5px;color:var(--ink2);margin-top:2px}
+.feed-x{color:var(--gold);font-weight:800;font-family:var(--mono);font-size:13px;flex:none}
+.complete-btn{margin-top:20px;width:100%;background:linear-gradient(135deg,var(--sakura),#F085AC);color:#fff;border:none;
+  border-radius:18px;padding:17px;font-weight:800;font-size:16px;cursor:pointer;font-family:var(--ui);
+  box-shadow:0 12px 28px rgba(227,91,140,.32);transition:transform .22s var(--spring),box-shadow .22s}
+.complete-btn:hover{transform:translateY(-2px);box-shadow:0 16px 36px rgba(227,91,140,.4)}
+.complete-btn:active{transform:scale(.98)}
+.complete-btn:disabled{background:#EAF6E2;color:#3D6B1F;cursor:default;box-shadow:none;transform:none}
+.lb-tabs{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap}
+.lb-tab{border:1px solid var(--glass-brd);background:var(--glass);backdrop-filter:var(--blur);-webkit-backdrop-filter:var(--blur);
+  border-radius:999px;padding:10px 19px;font-weight:700;cursor:pointer;font-size:13.5px;transition:.22s var(--spring);font-family:var(--ui)}
+.lb-tab:hover{border-color:var(--sakura);color:var(--sakura);transform:translateY(-1px)}
+.lb-tab.sel{background:var(--sakura);color:#fff;border-color:var(--sakura);box-shadow:0 8px 20px rgba(227,91,140,.3)}
+
+/* ══════════ GAMES ══════════ */
+.game-card{display:flex;align-items:center;gap:16px;padding:20px;border:1px solid var(--glass-brd);border-radius:var(--r);
+  margin-bottom:12px;cursor:pointer;background:var(--glass);backdrop-filter:var(--blur);-webkit-backdrop-filter:var(--blur);
+  box-shadow:var(--shadow);transition:.26s var(--spring);animation:fadeUp .4s var(--ease) both}
+.game-card:hover{border-color:var(--indigo);transform:translateY(-4px);box-shadow:var(--shadow2)}
+.game-card:active{transform:scale(.98)}
+.game-ic{font-size:30px;width:62px;height:62px;display:flex;align-items:center;justify-content:center;
+  background:var(--indigo-soft);border-radius:18px;flex:none}
+.mem-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:11px;max-width:480px}
+.mem-card{aspect-ratio:1;border-radius:18px;background:linear-gradient(135deg,var(--indigo),#7583CC);display:flex;
+  align-items:center;justify-content:center;font-size:30px;color:#fff;cursor:pointer;font-family:var(--jp);
+  user-select:none;box-shadow:var(--shadow);transition:.24s var(--spring)}
+.mem-card:hover{transform:translateY(-3px)}
+.mem-card.open{background:#fff;color:var(--ink);border:2px solid var(--sakura);animation:pop .34s var(--spring)}
+.mem-card.done{background:#EAF6E2;color:#3D6B1F;border:2px solid var(--green);cursor:default}
+.sg-top{display:flex;justify-content:space-between;font-size:16px;margin-bottom:20px;padding:0 4px;font-weight:700}
+.sg-kana{font-family:var(--jp);font-size:104px;text-align:center;margin:18px 0 30px;color:var(--ink);line-height:1;animation:pop .34s var(--spring)}
+.sg-opts{display:grid;grid-template-columns:1fr 1fr;gap:12px;max-width:470px;margin:0 auto}
+.sg-opt{padding:24px;font-size:21px;font-weight:700;font-family:var(--mono);border:1px solid var(--glass-brd);
+  border-radius:18px;background:var(--glass);backdrop-filter:var(--blur);-webkit-backdrop-filter:var(--blur);
+  cursor:pointer;box-shadow:var(--shadow);color:var(--ink);transition:.2s var(--spring)}
+.sg-opt:hover{border-color:var(--sakura);transform:translateY(-3px)}
+.sg-opt:active{transform:scale(.97)}
+.sg-opt.ok{background:#EAF6E2;border-color:var(--green);color:#3D6B1F;animation:pop .34s var(--spring)}
+.sg-opt.no{background:#FDEBEB;border-color:var(--red);color:#A3272B}
+.game-done{text-align:center;padding:34px 0;animation:fadeUp .45s var(--ease) both}
+.game-done h2{margin:10px 0;letter-spacing:-.5px;font-weight:900}
+.game-xp{font-family:var(--mono);font-weight:800;color:var(--gold);font-size:26px;margin:14px 0;animation:pop .45s var(--spring)}
+
+/* ══════════ FLASHCARDS ══════════ */
+.flash{max-width:380px;margin:0 auto;height:250px;perspective:1400px;cursor:pointer}
+.flash-inner{position:relative;width:100%;height:100%;transition:transform .6s var(--ease);transform-style:preserve-3d}
+.flash.flip .flash-inner{transform:rotateY(180deg)}
+.flash-front,.flash-back{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;
+  border-radius:var(--r-xl);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;
+  box-shadow:var(--shadow3);border:1px solid var(--glass-brd)}
+.flash-front{background:var(--glass-strong);backdrop-filter:var(--blur);-webkit-backdrop-filter:var(--blur);font-family:var(--jp);color:var(--ink)}
+.flash-front .big{font-size:82px;line-height:1}
+.flash-back{background:linear-gradient(135deg,var(--sakura),#F085AC);color:#fff;transform:rotateY(180deg);padding:22px;text-align:center}
+.flash-back .big{font-size:40px;font-weight:800}
+.flash-back .sub{font-family:var(--mono);opacity:.85;margin-top:4px}
+
+/* ══════════ AUDIO / WORD POP ══════════ */
+.say-btn{background:rgba(227,91,140,.10);border:none;border-radius:50%;width:38px;height:38px;font-size:17px;cursor:pointer;
+  display:inline-flex;align-items:center;justify-content:center;flex:none;padding:0;transition:.2s var(--spring)}
+.say-btn:hover{background:rgba(227,91,140,.2);transform:scale(1.1)}
+.say-btn:active{transform:scale(.88)}
+.say-sm{background:none;border:none;font-size:16px;cursor:pointer;opacity:.5;padding:0 5px;transition:.2s}
+.say-sm:hover{opacity:1}
+.kana-cell{cursor:pointer}
+.wtap{color:var(--sakura-deep);border-bottom:2px dotted var(--sakura);cursor:pointer;font-weight:600;transition:.18s;border-radius:4px;padding:0 1px}
+.wtap:hover{background:var(--sakura-soft)}
+.wordpop-bg{position:fixed;inset:0;background:rgba(36,31,43,.42);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);z-index:80;display:none}
+.wordpop-bg.show{display:block;animation:fadeIn .25s}
+.wordpop{position:fixed;left:50%;bottom:0;transform:translateX(-50%) translateY(110%);width:100%;max-width:500px;
+  background:var(--glass-strong);backdrop-filter:var(--blur);-webkit-backdrop-filter:var(--blur);border:1px solid var(--glass-brd);
+  border-radius:var(--r-xl) var(--r-xl) 0 0;box-shadow:0 -14px 50px rgba(0,0,0,.2);z-index:81;
+  padding:26px 26px calc(34px + env(safe-area-inset-bottom,0px));transition:transform .38s var(--ease)}
+.wordpop.show{transform:translateX(-50%) translateY(0)}
+.wp-word{display:flex;align-items:center;gap:12px;font-family:var(--jp);font-size:38px;font-weight:700;color:var(--ink)}
+.wp-read{font-family:var(--mono);color:var(--muted);margin:8px 0 2px}
+.wp-mn{color:var(--ink2);font-size:16px;margin-bottom:20px}
+
+/* ══════════ HANDWRITING ══════════ */
+.hwgrid{display:flex;flex-wrap:wrap;gap:16px}
+.hwcell{position:relative;width:154px;text-align:center}
+.hwguide{position:absolute;top:0;left:0;width:154px;height:154px;display:flex;align-items:center;justify-content:center;
+  font-family:var(--jp);font-size:106px;color:#F1E9E5;pointer-events:none;line-height:1;user-select:none}
+.hwcanvas{width:154px;height:154px;border:1px solid var(--glass-brd);border-radius:var(--r-sm);background:rgba(255,255,255,.6);
+  touch-action:none;cursor:crosshair;position:relative;display:block;box-shadow:var(--shadow)}
+.hwrom{font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:6px}
+.hwclear{margin-top:6px;border:1px solid var(--line);background:var(--glass);color:var(--muted);border-radius:11px;
+  padding:6px 15px;font-size:11px;cursor:pointer;transition:.2s;font-family:var(--ui)}
+.hwclear:hover{border-color:var(--sakura);color:var(--sakura)}
+
+/* ══════════ STATES ══════════ */
+.empty{color:var(--muted);text-align:center;padding:70px 20px;animation:fadeIn .5s both}
+.empty .jp{font-family:var(--jp);font-size:48px;color:rgba(227,91,140,.22);display:block;margin-bottom:14px;animation:floaty 3.4s ease-in-out infinite}
+.err{background:var(--sakura-soft);border:1px solid rgba(227,91,140,.3);color:#9F1239;padding:16px 20px;border-radius:var(--r-sm);margin:20px 30px}
+.menu-btn{display:none;background:var(--glass);backdrop-filter:var(--blur);-webkit-backdrop-filter:var(--blur);
+  border:1px solid var(--glass-brd);border-radius:14px;width:42px;height:42px;font-size:18px;cursor:pointer;color:var(--ink);flex:none;transition:.2s var(--spring)}
+.menu-btn:active{transform:scale(.92)}
+.backdrop{display:none}
+
+/* ══════════ FLOATING TABBAR ══════════ */
+.tabbar{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(14px + env(safe-area-inset-bottom,0px));
+  z-index:70;display:flex;gap:2px;padding:7px;border-radius:26px;width:calc(100% - 24px);max-width:460px;
+  background:rgba(255,255,255,.74);backdrop-filter:var(--blur);-webkit-backdrop-filter:var(--blur);
+  border:1px solid var(--glass-brd);box-shadow:var(--shadow3)}
+.tab{flex:1;border:0;background:transparent;border-radius:19px;padding:8px 4px;cursor:pointer;font-family:var(--ui);
+  display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--muted);transition:.24s var(--spring)}
+.tab i{font-style:normal;font-size:19px;line-height:1;transition:.24s var(--spring)}
+.tab span{font-size:10px;font-weight:700;letter-spacing:.2px}
+.tab:active{transform:scale(.92)}
+.tab.on{background:var(--sakura-soft);color:var(--sakura-deep)}
+.tab.on i{transform:translateY(-1px) scale(1.12)}
+
+/* ══════════ RESPONSIVE ══════════ */
+@media(max-width:900px){
+  body{font-size:15.5px}
+  main{padding:16px 16px 30px}
+  header{margin:8px 10px 0;padding:10px 12px;gap:10px;top:8px}
+  .hi{display:none}
+  .brand{font-size:16px}
+  .menu-btn{display:inline-flex;align-items:center;justify-content:center}
+  .levels{padding:12px 14px 4px}
+  .lessonhdr h1{font-size:25px}
+  .greet h1{font-size:27px}
+  .kgrid{max-width:100%;gap:7px}
+  .kc .k{font-size:20px}
+  .vocab{grid-template-columns:repeat(auto-fill,minmax(140px,1fr))}
+  .pairs{grid-template-columns:1fr 1fr}
+  .ex{flex-direction:column;gap:6px}
+  .sg-kana{font-size:82px}
+  .err{margin:16px}
+  aside{position:fixed;left:0;top:0;bottom:0;width:86%;max-width:340px;z-index:60;
+    background:rgba(255,255,255,.88);backdrop-filter:var(--blur);-webkit-backdrop-filter:var(--blur);
+    transform:translateX(-100%);transition:transform .36s var(--ease);box-shadow:0 10px 50px rgba(0,0,0,.24);
+    overflow-y:auto;padding:18px;display:block;max-height:none}
+  aside.open{transform:translateX(0)}
+  .backdrop{display:block;position:fixed;inset:0;background:rgba(36,31,43,.42);backdrop-filter:blur(4px);
+    -webkit-backdrop-filter:blur(4px);opacity:0;pointer-events:none;transition:opacity .35s;z-index:55}
+  .backdrop.show{opacity:1;pointer-events:auto}
+}
+@media(min-width:901px){
+  .bento{grid-template-columns:repeat(3,1fr)}
+  .tabbar{max-width:520px}
+}
+@media(max-width:380px){
+  .kpis{gap:8px}.kpi{padding:13px 9px}.kpi .kv{font-size:20px}
+  .bento{gap:9px}.bcard{padding:16px 14px}
+}
+
+</style>
+</head>
+<body>
+
+<!-- ═══ НЭВТРЭХ НҮҮР ═══ -->
+<section id="landing">
+  <svg id="scene" viewBox="0 0 800 1200" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#C6E6F1"/><stop offset="0.32" stop-color="#F6DCE6"/><stop offset="0.62" stop-color="#FCE7DF"/><stop offset="1" stop-color="#FBEEE6"/></linearGradient>
+      <linearGradient id="water" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#33406A"/><stop offset="1" stop-color="#1A2038"/></linearGradient>
+      <linearGradient id="fuji" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5A6690"/><stop offset="1" stop-color="#3C4A72"/></linearGradient>
+    </defs>
+    <rect x="0" y="0" width="800" height="1000" fill="url(#sky)"/>
+    <circle cx="400" cy="330" r="150" fill="#FFFFFF" opacity="0.28"/>
+    <path d="M0,880 L110,806 L210,858 L330,792 L430,846 L560,800 L680,852 L800,812 L800,1000 L0,1000 Z" fill="#EEBAC7" opacity="0.55"/>
+    <path d="M0,910 L150,858 L300,900 L470,852 L640,898 L800,862 L800,1000 L0,1000 Z" fill="#E7A6B8" opacity="0.5"/>
+    <path d="M400,616 L300,940 L500,940 Z" fill="url(#fuji)"/>
+    <path d="M400,616 L360,742 Q378,724 392,742 Q404,726 416,744 Q430,726 440,742 Z" fill="#F6F8FF"/>
+    <rect x="0" y="938" width="800" height="262" fill="url(#water)"/>
+    <ellipse cx="400" cy="946" rx="440" ry="16" fill="#3A4670" opacity="0.6"/>
+    <g>
+      <rect x="322" y="946" width="20" height="180" rx="4" fill="#C33A2E"/><rect x="458" y="946" width="20" height="180" rx="4" fill="#C33A2E"/>
+      <rect x="300" y="978" width="200" height="18" rx="3" fill="#B8332A"/>
+      <path d="M280,946 Q400,930 520,946 L520,962 Q400,948 280,962 Z" fill="#C33A2E"/>
+      <rect x="292" y="960" width="216" height="15" rx="3" fill="#AE2E25"/>
+      <rect x="384" y="962" width="32" height="20" rx="2" fill="#E8912E"/>
+      <g><line x1="352" y1="975" x2="352" y2="990" stroke="#7a1e18" stroke-width="2"/><ellipse cx="352" cy="1002" rx="12" ry="15" fill="#E8912E"/></g>
+      <g><line x1="448" y1="975" x2="448" y2="990" stroke="#7a1e18" stroke-width="2"/><ellipse cx="448" cy="1002" rx="12" ry="15" fill="#E8912E"/></g>
+    </g>
+    <g stroke="#6E4B3A" fill="none" stroke-linecap="round">
+      <path d="M-10,20 Q120,70 210,40 M120,55 Q150,90 200,95 M180,48 Q230,60 300,40" stroke-width="7"/>
+      <path d="M810,60 Q670,120 560,110 M640,95 Q610,150 560,170 M600,105 Q560,150 520,150" stroke-width="7"/>
+      <path d="M-10,1120 Q90,1040 170,1050 M70,1075 Q120,1030 150,1000" stroke-width="6"/>
+      <path d="M810,1130 Q700,1050 620,1060 M720,1080 Q670,1030 640,1005" stroke-width="6"/>
+    </g>
+    <g id="deco"></g>
+  </svg>
+
+  <div class="lwrap">
+    <div class="hero-brand">AURA</div>
+    <div class="hero-jp">日本語</div>
+    <div class="hero-tag">Япон хэлийг монголоор — N5-аас N3 хүртэл</div>
+    <div class="login">
+      <div class="authtabs">
+        <button class="atab active" data-m="login">Нэвтрэх</button>
+        <button class="atab" data-m="register">Бүртгүүлэх</button>
+      </div>
+
+      <div id="f-login" class="aform">
+        <input id="li-email" type="email" placeholder="И-мэйл" autocomplete="email">
+        <input id="li-pass" type="password" placeholder="Нууц үг" autocomplete="current-password">
+        <label class="remember"><input type="checkbox" id="li-remember" checked> Намайг сана</label>
+        <button class="btn" id="li-btn">Нэвтрэх</button>
+        <button class="btn ghost" id="li-forgot">Нууц үг мартсан уу?</button>
+      </div>
+
+      <div id="f-register" class="aform hidden">
+        <input id="rg-name" placeholder="Нэр" autocomplete="name">
+        <input id="rg-email" type="email" placeholder="И-мэйл" autocomplete="email">
+        <input id="rg-pass" type="password" placeholder="Нууц үг (6+ тэмдэгт)" autocomplete="new-password">
+        <button class="btn" id="rg-btn">Бүртгүүлэх</button>
+      </div>
+
+      <div id="f-forgot" class="aform hidden">
+        <p class="forgot-p">Бүртгэлтэй и-мэйлээ оруулбал сэргээх холбоос илгээнэ.</p>
+        <input id="fg-email" type="email" placeholder="И-мэйл" autocomplete="email">
+        <button class="btn" id="fg-btn">Сэргээх холбоос илгээх</button>
+        <button class="btn ghost" id="fg-back">← Буцах</button>
+      </div>
+
+      <div id="f-recovery" class="aform hidden">
+        <p class="forgot-p">Шинэ нууц үгээ оруулна уу.</p>
+        <input id="rc-pass" type="password" placeholder="Шинэ нууц үг (6+ тэмдэгт)" autocomplete="new-password">
+        <button class="btn" id="rc-btn">Хадгалах</button>
+      </div>
+
+      <div id="amsg" class="amsg"></div>
+      <button class="btn ghost" id="guest">Зочноор үзэх</button>
+      <button class="btn ghost" id="install-btn" style="display:none">📲 Апп болгон суулгах</button>
+      <div id="ios-hint" style="display:none;font-size:11.5px;color:#8a7e84;margin-top:8px;line-height:1.5">📲 Апп болгож суулгах: доод талын <b>Хуваалцах</b> (⬆️) → <b>«Нүүр дэлгэцэд нэмэх»</b> дарна уу.</div>
+      <div class="lconn"><span id="lconn-dot" style="width:8px;height:8px;border-radius:50%;background:#9A8E94"></span><span id="lconn-t">холбогдож байна…</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ АПП ═══ -->
+<div id="app" class="hidden">
+  <header>
+    <button class="menu-btn" id="menu-btn" aria-label="Цэс">☰</button>
+    <div class="brand"><span class="jp">日本語</span> AURA<span class="hi" id="hi"></span></div>
+    <div class="stats">
+      <div class="stat chip" id="streak-stat" style="display:none"><b id="s-streak">🔥0</b><span>дараалал</span></div>
+      <div class="stat chip" id="xp-stat" style="display:none"><b id="s-xp">0</b><span>XP</span></div>
+      <button class="pill" id="premium"></button>
+      <button class="avatar-btn" id="profile-btn" aria-label="Профайл">👤</button>
+    </div>
+  </header>
+  <div class="levels" id="levels"></div>
+  <div class="wrap">
+    <div class="backdrop" id="backdrop"></div>
+    <aside>
+      <input class="search" id="search" placeholder="Хичээл / модуль хайх…">
+      <div id="tree"></div>
+      <div class="side-actions">
+        <button class="out" id="game-btn">🎮 Тоглоом</button>
+        <button class="out" id="read-btn">📖 Унших</button>
+        <button class="out" id="board-btn">🏆 Тэмцээн</button>
+        <button class="out" id="admin-btn" style="display:none">👑 Эзэн самбар</button>
+        <button class="out" id="logout">Гарах</button>
+        <div class="side-counts"><span><b id="s-mod">–</b> модуль</span><span><b id="s-les">–</b> хичээл</span><span><b id="s-blk">–</b> блок</span></div>
+        <div class="ver">AURA · v17</div>
+      </div>
+    </aside>
+    <main id="main"><div class="empty"><span class="jp">あ</span>Ачаалж байна…</div></main>
+  </div>
+  <nav class="tabbar" id="tabbar">
+    <button class="tab" data-nav="home"><i>🏠</i><span>Нүүр</span></button>
+    <button class="tab" data-nav="learn"><i>📚</i><span>Хичээл</span></button>
+    <button class="tab" data-nav="games"><i>🎮</i><span>Тоглоом</span></button>
+    <button class="tab" data-nav="read"><i>📖</i><span>Унших</span></button>
+    <button class="tab" data-nav="profile"><i>👤</i><span>Профайл</span></button>
+  </nav>
+  <div id="err"></div>
+  <div class="wordpop-bg" id="wordpop-bg"></div>
+  <div class="wordpop" id="wordpop">
+    <div class="wp-word"><span id="wp-word"></span><button class="say-btn" id="wp-say">🔊</button></div>
+    <div class="wp-read" id="wp-read"></div>
+    <div class="wp-mn" id="wp-mn"></div>
+    <button class="complete-btn" id="wp-save">＋ Миний үгст хадгалах</button>
+    <button class="out" id="wp-close" style="width:100%;margin-top:8px">Хаах</button>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+// ─────────────────────────────────────────────────────────────────────
+// CONFIG — anon key нь нийтийн (RLS-хамгаалалттай). service_role битгий тавь!
+// ─────────────────────────────────────────────────────────────────────
+const CONFIG = {
+  url: 'https://avrgwlozvvmsctuhxmgu.supabase.co',
+  anon: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF2cmd3bG96dnZtc2N0dWh4bWd1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQyODg1ODksImV4cCI6MjA5OTg2NDU4OX0.N7-ud-ZVewpd4gepec4soVKRvQwP27amgt3eNiSG4_E'
+};
+const db = supabase.createClient(CONFIG.url, CONFIG.anon, {
+  auth:{ persistSession:true, autoRefreshToken:true, detectSessionInUrl:true }
+});
+// ── Төлбөрийн тохиргоо (өөрийнхөөрөө засаарай) ──
+const BILLING = {
+  freeLevels:[],   // JLPT түвшин бүгд Premium; зөвхөн үсгийн үндэс (хирагана/катакана) үнэгүй
+  bank:{ name:'Хаан банк', account:'5301485954', holder:'Б.Энхмаа' },
+  plans:[ {months:1,amount:15000,label:'1 сар'}, {months:3,amount:39000,label:'3 сар'}, {months:12,amount:120000,label:'1 жил'} ]
+};
+// ── Эзэн (админ) мэйл — SQL-ийн admins хүснэгттэй ижил байх ёстой ──
+const ADMIN = { emails:['enhmaabayr181@gmail.com'] };  // ← өөрийн нэвтэрдэг мэйлээ бич
+const $ = s => document.querySelector(s);
+const esc = s => (s==null?'':String(s)).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+const escA = s => esc(s).replace(/"/g,'&quot;');
+const byOrder=(a,b)=>(a.display_order||0)-(b.display_order||0);
+const store={get(k){try{return localStorage.getItem(k)}catch(e){return null}},set(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
+
+let LEVELS=[], MODS=[], LESSONS=[], BLOCKS=[];
+let activeLevel=null, activeLesson=null, userName='', dataReady=false;
+let currentUser=null, SUB=null, payMonths=1, payAmount=0, payRef='', myStats=null;
+
+// ── SVG чимэглэл ──
+function decorateScene(){
+  const deco=document.getElementById('deco'); if(!deco) return;
+  const flower=(x,y,r,c)=>{let s='';for(let i=0;i<5;i++){const a=i*72*Math.PI/180;s+=`<circle cx="${(x+Math.cos(a)*r).toFixed(1)}" cy="${(y+Math.sin(a)*r).toFixed(1)}" r="${(r*0.72).toFixed(1)}" fill="${c}"/>`;}s+=`<circle cx="${x}" cy="${y}" r="${(r*0.42).toFixed(1)}" fill="#FFE08A"/>`;return s;};
+  const cluster=(cx,cy,n,spread)=>{let s='';const cols=['#F7B3CB','#F49CBB','#FBC9D9'];for(let i=0;i<n;i++){const x=cx+(Math.random()-0.5)*spread,y=cy+(Math.random()-0.5)*spread,r=3+Math.random()*3.5;s+=flower(x,y,r,cols[i%3]);}return s;};
+  let html='';
+  [[40,40,26,42],[170,55,22,40],[260,45,20,36],[560,110,26,44],[600,150,20,38],[540,150,18,34],[90,1050,22,40],[150,1005,18,34],[640,1055,22,40],[660,1010,18,34],[330,1055,16,30],[470,1055,16,30]].forEach(a=>html+=cluster(a[0],a[1],a[2],a[3]));
+  const pc=['#F4A6C0','#F7BBCE','#EF93B4'];
+  for(let i=0;i<16;i++){const x=Math.random()*800,y=120+Math.random()*760,rot=Math.random()*360,sc=.7+Math.random()*.8;html+=`<g transform="translate(${x.toFixed(0)},${y.toFixed(0)}) rotate(${rot.toFixed(0)}) scale(${sc.toFixed(2)})" opacity="${(.5+Math.random()*.4).toFixed(2)}"><path d="M0,-6 Q4,-2 3,3 Q0,6 -3,3 Q-4,-2 0,-6 Z" fill="${pc[i%3]}"/></g>`;}
+  deco.innerHTML=html;
+}
+
+// ─────────── AUTH ───────────
+const msg=(t,ok)=>{ const m=$('#amsg'); m.textContent=t||''; m.className='amsg'+(t?(ok?' ok':' err'):''); };
+function showForm(which){
+  ['login','register','forgot','recovery'].forEach(f=>$('#f-'+f).classList.toggle('hidden',f!==which));
+  document.querySelectorAll('.atab').forEach(b=>b.classList.toggle('active',b.dataset.m===which));
+  msg('');
+}
+document.querySelectorAll('.atab').forEach(b=>b.onclick=()=>showForm(b.dataset.m));
+$('#li-forgot').onclick=()=>showForm('forgot');
+$('#fg-back').onclick=()=>showForm('login');
+
+async function doLogin(){
+  const email=$('#li-email').value.trim(), pass=$('#li-pass').value;
+  if(!email||!pass) return msg('И-мэйл ба нууц үгээ оруулна уу.',true);
+  store.set('aura_remember', $('#li-remember').checked?'1':'0');
+  $('#li-btn').disabled=true; msg('Нэвтэрч байна…');
+  const {data,error}=await db.auth.signInWithPassword({email,password:pass});
+  $('#li-btn').disabled=false;
+  if(error) return msg(orMn(error.message),true);
+  enterApp(data.user);
+}
+async function doRegister(){
+  const name=$('#rg-name').value.trim(), email=$('#rg-email').value.trim(), pass=$('#rg-pass').value;
+  if(!name||!email||!pass) return msg('Бүх талбарыг бөглөнө үү.',true);
+  if(pass.length<6) return msg('Нууц үг дор хаяж 6 тэмдэгт байх ёстой.',true);
+  $('#rg-btn').disabled=true; msg('Бүртгэж байна…');
+  const {data,error}=await db.auth.signUp({email,password:pass,options:{data:{name},emailRedirectTo:location.origin}});
+  $('#rg-btn').disabled=false;
+  if(error) return msg(orMn(error.message),true);
+  if(data.session){ enterApp(data.user); }
+  else msg('Бүртгэл үүслээ! И-мэйл рүү явуулсан холбоосоор баталгаажуулаад нэвтэрнэ үү.',false);
+}
+async function doForgot(){
+  const email=$('#fg-email').value.trim();
+  if(!email) return msg('И-мэйлээ оруулна уу.',true);
+  $('#fg-btn').disabled=true; msg('Илгээж байна…');
+  const {error}=await db.auth.resetPasswordForEmail(email,{redirectTo:location.origin});
+  $('#fg-btn').disabled=false;
+  if(error) return msg(orMn(error.message),true);
+  msg('Сэргээх холбоосыг и-мэйлээр илгээлээ. И-мэйлээ шалгаарай.',false);
+}
+async function doRecovery(){
+  const pass=$('#rc-pass').value;
+  if(pass.length<6) return msg('Нууц үг дор хаяж 6 тэмдэгт байх ёстой.',true);
+  $('#rc-btn').disabled=true; msg('Хадгалж байна…');
+  const {error}=await db.auth.updateUser({password:pass});
+  $('#rc-btn').disabled=false;
+  if(error) return msg(orMn(error.message),true);
+  msg('Нууц үг шинэчлэгдлээ. Одоо нэвтэрнэ үү.',false); showForm('login');
+}
+function orMn(m){
+  m=(m||'').toLowerCase();
+  if(m.includes('invalid login')) return 'И-мэйл эсвэл нууц үг буруу байна.';
+  if(m.includes('already registered')||m.includes('already been registered')) return 'Энэ и-мэйл аль хэдийн бүртгэлтэй байна.';
+  if(m.includes('confirm')) return 'И-мэйлээ баталгаажуулна уу.';
+  if(m.includes('rate limit')) return 'Хэт олон удаа оролдлоо. Түр хүлээгээрэй.';
+  return m;
+}
+$('#li-btn').onclick=doLogin;
+$('#rg-btn').onclick=doRegister;
+$('#fg-btn').onclick=doForgot;
+$('#rc-btn').onclick=doRecovery;
+$('#li-pass').addEventListener('keydown',e=>{if(e.key==='Enter')doLogin();});
+$('#rg-pass').addEventListener('keydown',e=>{if(e.key==='Enter')doRegister();});
+$('#guest').onclick=()=>enterApp(null,true);
+
+// нууц үг сэргээх холбоосоор буцаж ирэхэд
+db.auth.onAuthStateChange((event)=>{ if(event==='PASSWORD_RECOVERY') showForm('recovery'); });
+
+async function checkSession(){
+  try{
+    const {data:{session}}=await db.auth.getSession();
+    if(session){
+      if(store.get('aura_remember')==='0'){ await db.auth.signOut(); return; }
+      enterApp(session.user);
+    }
+  }catch(e){}
+}
+
+// ── өгөгдөл ──
+async function loadData(){
+  try{
+    const [lv,md,ls,bl] = await Promise.all([
+      db.from('levels').select('*').order('display_order').limit(20000),
+      db.from('modules').select('*').order('display_order').limit(20000),
+      db.from('lessons').select('*').order('display_order').limit(20000),
+      db.from('lesson_blocks').select('*').order('display_order').limit(20000),
+    ]);
+    for(const r of [lv,md,ls,bl]) if(r.error) throw r.error;
+    LEVELS=lv.data||[]; MODS=md.data||[]; LESSONS=ls.data||[]; BLOCKS=bl.data||[]; dataReady=true;
+    try{ console.log('AURA v17 loaded →', LEVELS.length,'түвшин,', MODS.length,'модуль,', LESSONS.length,'хичээл'); console.log('Түвшнүүд:', LEVELS.map(l=>(l.code||l.name_mn)+':'+MODS.filter(m=>m.level_id===l.id).length+'мод').join(' | ')); }catch(e){}
+    lconn(true);
+    $('#s-mod').textContent=MODS.length; $('#s-les').textContent=LESSONS.length; $('#s-blk').textContent=BLOCKS.length;
+  }catch(e){ lconn(false); $('#err').innerHTML='<div class="err">Холбогдож чадсангүй: '+esc(e.message||e)+'</div>'; }
+}
+function lconn(ok){ $('#lconn-dot').style.background=ok?'#15A34A':'#E11D48'; $('#lconn-t').textContent=ok?'сервертэй холбогдсон':'холболтын алдаа'; }
+function lessonsOfLevel(id){ return LESSONS.filter(x=>MODS.some(m=>m.level_id===id && m.id===x.module_id)); }
+
+// ── апп руу орох ──
+function enterApp(user,guest){
+  currentUser = guest ? null : user;
+  userName = guest ? 'Зочин' : ((user&&user.user_metadata&&user.user_metadata.name) || (user&&user.email? user.email.split('@')[0]:''));
+  $('#hi').textContent = userName ? ('· Сайн уу, '+userName+'!') : '';
+  $('#landing').classList.add('hidden'); $('#app').classList.remove('hidden');
+  const go=()=>{ updatePremiumPill(); updateAdminBtn(); renderLevels(); if(LEVELS.length && !activeLevel) activeLevel=LEVELS[0].id; renderNav(); showHome(); };
+  const start=()=>{ Promise.all([fetchSub(), fetchStats(), fetchReading(), fetchSaved()]).then(go); };
+  if(dataReady) start(); else loadData().then(start);
+  window.scrollTo(0,0);
+}
+
+// ── Premium / захиалга ──
+async function fetchSub(){
+  SUB=null; if(!currentUser) return;
+  try{ const {data}=await db.from('subscriptions').select('*').eq('user_id',currentUser.id).maybeSingle(); SUB=data||null; }catch(e){}
+}
+function isPremium(){ if(isAdmin()) return true; return !!(SUB && SUB.status==='active' && SUB.expires_at && new Date(SUB.expires_at)>new Date()); }
+function levelLocked(levelId){
+  const lv=LEVELS.find(l=>l.id===levelId); if(!lv) return false;
+  const code=lv.code||'';
+  if(BILLING.freeLevels.indexOf(code)>=0) return false;   // үнэгүй жагсаалтад бол
+  if(!/^N[1-5]$/i.test(code)) return false;                // JLPT биш (хирагана үндэс г.м.) → үнэгүй
+  return !isPremium();
+}
+// Түвшний эрэмбэ: үндэс эхэнд, дараа нь N5 → N4 → N3 → N2 → N1
+function levelRank(l){ const m=(l.code||'').match(/N([1-5])/i); return m ? (10-parseInt(m[1])) : -1; }
+function orderedLevels(){ return LEVELS.slice().sort((a,b)=> (levelRank(a)-levelRank(b)) || ((a.display_order||0)-(b.display_order||0)) ); }
+function fmt(n){ return (n||0).toLocaleString('en-US'); }
+function updatePremiumPill(){
+  const el=$('#premium'); if(!el) return;
+  if(isAdmin()){ el.textContent='★ Эзэн'; el.title='Эзэн — бүх хандалттай'; el.className='pill on'; el.onclick=null; return; }
+  if(isPremium()){ el.textContent='★ Premium'; el.title='Дуусах: '+new Date(SUB.expires_at).toLocaleDateString(); el.className='pill on'; el.onclick=null; }
+  else { el.textContent='Premium авах'; el.className='pill'; el.onclick=()=>showUpgrade(); }
+}
+function showUpgrade(){
+  activeLesson=null;
+  if(!currentUser){
+    renderNav();
+    $('#main').innerHTML='<div class="upgrade"><div class="up-badge">🔒 Premium</div><h2>Эхлээд бүртгүүлнэ үү</h2><p>N5, N4, N3 түвшинг нээхийн тулд бүртгэл үүсгэж нэвтэрнэ үү.</p><button class="btn" id="go-reg" style="max-width:240px">Бүртгүүлэх / Нэвтрэх</button></div>';
+    $('#go-reg').onclick=logout; return;
+  }
+  renderNav();
+  payRef=currentUser.email || 'user';
+  payMonths=BILLING.plans[0].months; payAmount=BILLING.plans[0].amount;
+  const plans=BILLING.plans.map((p,i)=>'<button class="plan'+(i===0?' sel':'')+'" data-i="'+i+'">'+esc(p.label)+' · '+fmt(p.amount)+'₮</button>').join('');
+  $('#main').innerHTML=
+   '<div class="upgrade"><div class="up-badge">🔒 Premium хичээл</div>'+
+   '<h2>N5 · N4 · N3 түвшинг нээх</h2>'+
+   '<p>Үсгийн үндэс (хирагана · катакана) үнэгүй. N5, N4, N3 бүх түвшинг Premium захиалгаар нээнэ. Хугацаагаа сонгоод банкны данс руу шилжүүлээрэй.</p>'+
+   '<div class="plans">'+plans+'</div>'+
+   '<div class="bankbox">'+
+     '<div class="brow"><span>Банк</span><b>'+esc(BILLING.bank.name)+'</b></div>'+
+     '<div class="brow"><span>Данс</span><b>'+esc(BILLING.bank.account)+'</b></div>'+
+     '<div class="brow"><span>Хүлээн авагч</span><b>'+esc(BILLING.bank.holder)+'</b></div>'+
+     '<div class="brow"><span>Дүн</span><b id="pay-amt">'+fmt(payAmount)+'₮</b></div>'+
+     '<div class="brow"><span>Гүйлгээний утга (таны мэйл)</span><b id="pay-ref">'+esc(payRef)+'</b></div>'+
+   '</div>'+
+   '<p class="up-note">Шилжүүлэхдээ «Гүйлгээний утга»-д өөрийн <b>и-мэйл хаягаа</b> заавал бичээрэй — ингэснээр эзэн таны төлбөрийг таньж, тухайн мэйл рүү эрх олгоно. Шилжүүлсний дараа доорх товчийг дарна уу.</p>'+
+   '<button class="btn" id="paid-btn" style="max-width:260px">Би шилжүүлсэн ✓</button>'+
+   '<div id="pay-msg" class="amsg" style="text-align:left"></div></div>';
+  document.querySelectorAll('.plan').forEach(b=>b.onclick=()=>{
+    document.querySelectorAll('.plan').forEach(x=>x.classList.remove('sel')); b.classList.add('sel');
+    const p=BILLING.plans[+b.dataset.i]; payMonths=p.months; payAmount=p.amount; $('#pay-amt').textContent=fmt(payAmount)+'₮';
+  });
+  $('#paid-btn').onclick=submitPayment;
+}
+async function submitPayment(){
+  const m=$('#pay-msg'); $('#paid-btn').disabled=true; m.textContent='Илгээж байна…'; m.className='amsg';
+  const {error}=await db.from('payment_requests').insert({user_id:currentUser.id,plan:'premium',months:payMonths,amount:payAmount,bank:BILLING.bank.name,reference:payRef,status:'pending'});
+  $('#paid-btn').disabled=false;
+  if(error){ m.textContent='Алдаа: '+esc(error.message); m.className='amsg err'; return; }
+  m.textContent='Хүсэлт илгээгдлээ ✓ Төлбөрийг тань шалгаж баталгаажуулсны дараа Premium автоматаар нээгдэнэ.'; m.className='amsg ok';
+}
+async function logout(){ try{await db.auth.signOut();}catch(e){} $('#app').classList.add('hidden'); $('#landing').classList.remove('hidden'); showForm('login'); window.scrollTo(0,0); }
+$('#logout').onclick=logout;
+$('#board-btn').onclick=showLeaderboard;
+$('#read-btn').onclick=showReading;
+$('#game-btn').onclick=showGames;
+$('#profile-btn').onclick=showProfile;
+document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>{ const k=t.getAttribute('data-nav'); if(k==='home') showHome(); else if(k==='learn') homeGo('learn'); else if(k==='games') showGames(); else if(k==='read') showReading(); else if(k==='profile') showProfile(); });
+$('#wp-close').onclick=closeWordPop;
+$('#wordpop-bg').onclick=closeWordPop;
+$('#wp-save').onclick=saveCurWord;
+$('#wp-say').onclick=()=>{ if(curPopWord) speak(curPopWord.word); };
+document.addEventListener('click',function(e){ const w=e.target.closest('.wtap'); if(w){ openWordPop(w.getAttribute('data-w'), w.getAttribute('data-r'), w.getAttribute('data-m')); } });
+
+// ── Эзэн самбар (Admin) ──
+function isAdmin(){ return !!(currentUser && ADMIN.emails.map(e=>String(e).toLowerCase()).indexOf(String(currentUser.email||'').toLowerCase())>=0); }
+function updateAdminBtn(){ const b=$('#admin-btn'); if(!b) return; if(isAdmin()){ b.style.display=''; b.onclick=showAdmin; } else { b.style.display='none'; } }
+function showAdmin(){
+  activeLesson=null; renderNav();
+  $('#main').innerHTML=
+   '<div class="upgrade" style="max-width:660px">'+
+    '<div class="up-badge" style="background:var(--gold-soft);color:var(--gold)">👑 Эзэн самбар</div>'+
+    '<h2>Хандалт удирдах</h2>'+
+    '<div class="block" style="box-shadow:none">'+
+      '<div class="btag"><span class="pip"></span>Мэйлээр эрх олгох</div>'+
+      '<input id="adm-email" class="search" placeholder="Хэрэглэгчийн и-мэйл" style="margin-bottom:10px">'+
+      '<div class="plans" id="adm-plans"><button class="plan sel" data-m="1">1 сар</button><button class="plan" data-m="3">3 сар</button><button class="plan" data-m="12">1 жил</button></div>'+
+      '<button class="btn" id="adm-grant" style="max-width:220px">Эрх олгох</button>'+
+      '<div id="adm-msg" class="amsg" style="text-align:left"></div>'+
+    '</div>'+
+    '<div class="block" style="box-shadow:none">'+
+      '<div class="btag"><span class="pip"></span>Хүлээгдэж буй төлбөрийн хүсэлт</div>'+
+      '<div id="adm-pending" style="color:var(--muted)">Ачаалж байна…</div>'+
+    '</div>'+
+   '</div>';
+  let gm=1;
+  document.querySelectorAll('#adm-plans .plan').forEach(b=>b.onclick=()=>{ document.querySelectorAll('#adm-plans .plan').forEach(x=>x.classList.remove('sel')); b.classList.add('sel'); gm=+b.dataset.m; });
+  $('#adm-grant').onclick=async()=>{
+    const email=$('#adm-email').value.trim(), m=$('#adm-msg');
+    if(!email){ m.textContent='И-мэйл оруулна уу.'; m.className='amsg err'; return; }
+    $('#adm-grant').disabled=true; m.textContent='Олгож байна…'; m.className='amsg';
+    const {data,error}=await db.rpc('admin_grant_access',{p_email:email,p_months:gm});
+    $('#adm-grant').disabled=false;
+    if(error){ m.textContent='Алдаа: '+esc(error.message); m.className='amsg err'; return; }
+    m.textContent=esc(data||'Амжилттай'); m.className='amsg ok'; loadPending();
+  };
+  loadPending();
+}
+async function loadPending(){
+  const box=$('#adm-pending'); if(!box) return;
+  const {data,error}=await db.rpc('admin_list_pending');
+  if(error){ box.innerHTML='<div class="amsg err" style="text-align:left">Алдаа: '+esc(error.message)+'</div>'; return; }
+  if(!data||!data.length){ box.innerHTML='<div style="color:var(--muted)">Хүлээгдэж буй хүсэлт алга.</div>'; return; }
+  box.innerHTML=data.map(r=>'<div class="brow" style="align-items:center"><span>'+esc(r.email||'')+' · '+esc(r.months)+' сар · '+fmt(r.amount)+'₮ · <b style="font-family:var(--mono);color:var(--ink)">'+esc(r.reference||'')+'</b></span><button class="out" data-id="'+esc(r.id)+'" style="border-color:var(--green);color:var(--green)">Зөвшөөрөх</button></div>').join('');
+  box.querySelectorAll('button[data-id]').forEach(b=>b.onclick=async()=>{
+    b.disabled=true; b.textContent='…';
+    const {error}=await db.rpc('admin_approve_request',{p_id:b.getAttribute('data-id')});
+    if(error){ b.textContent='Алдаа'; b.disabled=false; return; }
+    b.textContent='✓ Зөвшөөрсөн'; setTimeout(loadPending,600);
+  });
+}
+
+// ── Тэмцээн / XP / лент ──
+async function fetchStats(){
+  myStats=null; if(!currentUser){ updateXP(); return; }
+  try{ const {data}=await db.from('user_stats').select('*').eq('user_id',currentUser.id).maybeSingle(); myStats=data||null; }catch(e){}
+  updateXP();
+}
+function updateXP(){
+  const xe=$('#xp-stat'), xb=$('#s-xp'), se=$('#streak-stat'), sb=$('#s-streak');
+  if(currentUser){ if(xe)xe.style.display=''; if(xb)xb.textContent=(myStats&&myStats.total_xp)||0; const st=(myStats&&myStats.streak)||0; if(se)se.style.display=st>0?'':'none'; if(sb)sb.textContent='🔥'+st; }
+  else { if(xe)xe.style.display='none'; if(se)se.style.display='none'; }
+}
+function initials(n){ n=(n||'?').trim(); return (n[0]||'?').toUpperCase(); }
+function timeAgo(ts){ const d=(Date.now()-new Date(ts).getTime())/1000; if(d<60)return 'дөнгөж сая'; if(d<3600)return Math.floor(d/60)+' мин'; if(d<86400)return Math.floor(d/3600)+' цаг'; return Math.floor(d/86400)+' өдөр'; }
+async function completeLesson(L){ return completeLessonId(L.id, L.xp_reward||10, L.title_mn||'Хичээл'); }
+async function completeLessonId(id, xp, title){
+  if(!currentUser) return null;
+  try{ const {data,error}=await db.rpc('complete_lesson',{p_lesson:id,p_xp:xp,p_name:userName,p_title:title}); if(error) throw error; return data; }catch(e){ return null; }
+}
+// ── Унших ном ──
+let READING=[];
+async function fetchReading(){ try{ const {data}=await db.from('reading_stories').select('*').order('display_order'); READING=data||[]; }catch(e){ READING=[]; } }
+function setBg(name){ try{ document.body.style.backgroundImage="linear-gradient(rgba(255,251,248,.52),rgba(255,250,247,.60)), url('"+name+"')"; }catch(e){} }
+function bgForLesson(L){
+  const m=MODS.find(x=>x.id===L.module_id); if(!m) return 'bg-app.jpg';
+  const lv=LEVELS.find(x=>x.id===m.level_id); const code=(lv&&lv.code)||'';
+  const nat=((m.title_native||'')+' '+(m.title_mn||''));
+  if(!/N[1-5]/i.test(code)) return 'bg-kana.jpg';
+  if(/語彙|[Үү]гс|[Vv]ocab/.test(nat)) return 'bg-vocab.jpg';
+  return 'bg-grammar.jpg';
+}
+function showReading(){
+  activeLesson=null; renderNav(); setBg('bg-vocab.jpg'); setNav('read');
+  if(!READING.length){ $('#main').innerHTML='<div class="upgrade"><div class="up-badge" style="background:#e0f2fe;color:#0369a1">📖 Унших</div><h2>Унших материал</h2><p>Одоохондоо алга. <b>reading_streak.sql</b>-ээ Supabase-д Run хийсэн үү?</p></div>'; return; }
+  const cats={}; READING.forEach(s=>{ const c=s.category||'Бусад'; (cats[c]=cats[c]||[]).push(s); });
+  const order=['Хүн ба гэр бүл','Өдөр тутмын амьдрал','Хоол ба хот','Аялал ба амралт','Ажил ба сурах','Бусад'];
+  const keys=order.filter(c=>cats[c]).concat(Object.keys(cats).filter(c=>order.indexOf(c)<0));
+  const card=s=>'<div class="lb-row read-card" data-id="'+escA(s.id)+'" style="cursor:pointer"><div class="lb-av" style="background:linear-gradient(135deg,#0ea5e9,#6366f1)">'+esc(s.level||'N5')+'</div><div class="lb-name">'+esc(s.title_mn)+'<div class="lb-sub" style="font-family:var(--jp)">'+esc(s.title_jp||'')+'</div></div><div class="lb-xp" style="color:#0ea5e9">+'+(s.xp||20)+' XP</div></div>';
+  let html='<div class="upgrade" style="max-width:640px"><div class="up-badge" style="background:#e0f2fe;color:#0369a1">📖 Унших</div><h2>Унших материал</h2><p style="color:var(--muted);margin-bottom:10px">Сэдвээр ангилсан богино өгүүллэг. <b style="color:var(--sakura)">Тодруулсан үг</b> дээр дарж утга/дуудлагыг харна.</p>'+(currentUser?'<button class="out" id="myword-btn" style="margin-bottom:14px;border-color:#0ea5e9;color:#0369a1">📓 Миний үгс ('+SAVED.length+')</button>':'');
+  keys.forEach(c=>{ html+='<div style="font-weight:800;color:var(--sakura);margin:18px 0 10px;font-size:14px">'+esc(c)+' <span style="color:var(--muted);font-weight:500">· '+cats[c].length+'</span></div>'+cats[c].map(card).join(''); });
+  $('#main').innerHTML=html+'</div>';
+  const mw=$('#myword-btn'); if(mw) mw.onclick=showSavedWords;
+  document.querySelectorAll('.read-card').forEach(c=>c.onclick=()=>{ const s=READING.find(x=>String(x.id)===c.getAttribute('data-id')); if(s) readStory(s); });
+}
+function readStory(s){
+  activeLesson=null; renderNav();
+  const lines=(s.body||[]).map(l=>'<div style="margin-bottom:18px"><div style="display:flex;align-items:flex-start;gap:8px"><div style="font-family:var(--jp);font-size:21px;line-height:1.6;color:var(--ink);flex:1">'+highlightVocab(l.jp, s.vocab)+'</div><button class="say-btn" data-say="'+escA(l.jp)+'">🔊</button></div><div style="font-family:var(--mono);font-size:12px;color:var(--muted);margin-top:3px">'+esc(mnReading(l.jp))+'</div><div style="color:var(--ink2);margin-top:3px">'+esc(l.mn)+'</div></div>').join('');
+  const vocab=(s.vocab||[]).length?'<div class="block"><div class="btag"><span class="pip"></span>Шинэ үгс</div><div class="vocab">'+(s.vocab||[]).map(v=>'<div class="v"><span class="w" data-say="'+escA(v.word)+'" style="cursor:pointer">'+esc(v.word)+' 🔊</span><span class="rd">'+esc(mnReading(v.reading||v.word))+'</span><span class="mn">'+esc(v.mn)+'</span></div>').join('')+'</div></div>':'';
+  $('#main').innerHTML='<div class="lessonhdr"><div class="crumb">📖 Унших › '+esc(s.level||'N5')+'</div><h1>'+esc(s.title_mn)+'</h1><div class="jp">'+esc(s.title_jp||'')+'</div></div>'+
+    '<div class="block"><div class="btag"><span class="pip"></span>Өгүүллэг</div>'+lines+'</div>'+vocab+
+    '<button class="out" id="read-back" style="margin-top:8px">← Буцах</button>'+
+    (currentUser?'<button class="complete-btn" id="read-done">✓ Уншиж дууслаа (+'+(s.xp||20)+' XP)</button>':'');
+  $('#read-back').onclick=showReading;
+  const rb=$('#read-done'); if(rb){ rb.onclick=async()=>{ rb.disabled=true; rb.textContent='Түр хүлээнэ үү…'; const xp=await completeLessonId(s.id,s.xp||20,'«'+s.title_mn+'» уншиж'); if(xp&&xp>0){ myStats=myStats||{}; myStats.total_xp=(myStats.total_xp||0)+xp; updateXP(); rb.textContent='🎉 +'+xp+' XP'; } else if(xp===0){ rb.textContent='✓ Аль хэдийн уншсан'; } else { rb.textContent='Алдаа — дахин'; rb.disabled=false; } }; }
+  window.scrollTo(0,0); if(window.innerWidth<=820) openDrawer(false);
+}
+// ── Хадгалсан үгс (Миний үгс) ──
+let SAVED=[], curPopWord=null;
+async function fetchSaved(){ SAVED=[]; if(!currentUser) return; try{ const {data}=await db.from('saved_words').select('*').order('created_at',{ascending:false}); SAVED=data||[]; }catch(e){} }
+function isSaved(w){ return SAVED.some(x=>x.word===w); }
+function highlightVocab(text, vocab){
+  const vs=(vocab||[]).filter(v=>v&&v.word).slice().sort((a,b)=>b.word.length-a.word.length);
+  if(!vs.length) return esc(text);
+  let html='', rest=String(text), guard=0;
+  while(rest.length && guard++<500){
+    let bi=-1, bv=null;
+    vs.forEach(v=>{ const i=rest.indexOf(v.word); if(i>=0 && (bi<0 || i<bi)){ bi=i; bv=v; } });
+    if(bi<0){ html+=esc(rest); break; }
+    html+=esc(rest.slice(0,bi))+'<span class="wtap" data-w="'+escA(bv.word)+'" data-r="'+escA(bv.reading||bv.word)+'" data-m="'+escA(bv.mn||'')+'">'+esc(bv.word)+'</span>';
+    rest=rest.slice(bi+bv.word.length);
+  }
+  return html;
+}
+function openWordPop(w,r,m){
+  curPopWord={word:w,reading:r,meaning:m};
+  $('#wp-word').textContent=w; $('#wp-read').textContent=mnReading(r||w); $('#wp-mn').textContent=m||'';
+  const sv=$('#wp-save');
+  if(!currentUser){ sv.style.display='none'; } else { sv.style.display=''; if(isSaved(w)){ sv.disabled=true; sv.textContent='✓ Хадгалсан'; } else { sv.disabled=false; sv.textContent='＋ Миний үгст хадгалах'; } }
+  $('#wordpop').classList.add('show'); $('#wordpop-bg').classList.add('show');
+  speak(w);
+}
+function closeWordPop(){ $('#wordpop').classList.remove('show'); $('#wordpop-bg').classList.remove('show'); }
+async function saveCurWord(){
+  if(!currentUser||!curPopWord) return;
+  const sv=$('#wp-save'); sv.disabled=true; sv.textContent='Хадгалж байна…';
+  try{ const {error}=await db.from('saved_words').insert({user_id:currentUser.id,word:curPopWord.word,reading:curPopWord.reading,meaning:curPopWord.meaning}); if(error&&error.code!=='23505') throw error; if(!isSaved(curPopWord.word)) SAVED.unshift({word:curPopWord.word,reading:curPopWord.reading,meaning:curPopWord.meaning}); sv.textContent='✓ Хадгалсан'; }catch(e){ sv.textContent='Алдаа — дахин'; sv.disabled=false; }
+}
+function showSavedWords(){
+  activeLesson=null; renderNav(); setBg('bg-vocab.jpg'); setNav('profile');
+  const hdr='<div class="up-badge" style="background:#e0f2fe;color:#0369a1">📓 Миний үгс</div>';
+  if(!currentUser){ $('#main').innerHTML='<div class="upgrade">'+hdr+'<h2>Нэвтэрнэ үү</h2><p>Үг хадгалахын тулд нэвтэрнэ үү.</p></div>'; return; }
+  if(!SAVED.length){ $('#main').innerHTML='<div class="upgrade">'+hdr+'<h2>Миний үгс</h2><p>Одоохондоо хоосон. Унших үедээ тодруулсан <b>шинэ үг</b> дээр дараад хадгалаарай! 📖</p><button class="out" id="toread">← Унших</button></div>'; $('#toread').onclick=showReading; return; }
+  $('#main').innerHTML='<div class="upgrade" style="max-width:640px">'+hdr+'<h2>Миний үгс <span style="color:var(--muted);font-weight:500;font-size:16px">· '+SAVED.length+'</span></h2>'+
+    SAVED.map(v=>'<div class="lb-row"><div class="lb-name" style="font-family:var(--jp)"><span data-say="'+escA(v.word)+'" style="cursor:pointer">'+esc(v.word)+' 🔊</span><div class="lb-sub" style="font-family:var(--mono)">'+esc(mnReading(v.reading||v.word))+'</div></div><div style="flex:1;color:var(--ink2);font-size:14px">'+esc(v.meaning||'')+'</div><button class="say-sm wdel" data-w="'+escA(v.word)+'">🗑️</button></div>').join('')+
+    '<button class="out" id="toread" style="margin-top:12px">← Унших</button></div>';
+  $('#toread').onclick=showReading;
+  document.querySelectorAll('.wdel').forEach(b=>b.onclick=async()=>{ const w=b.getAttribute('data-w'); try{ await db.from('saved_words').delete().eq('user_id',currentUser.id).eq('word',w); SAVED=SAVED.filter(x=>x.word!==w); showSavedWords(); }catch(e){} });
+}
+// ══ НҮҮР / ПРОФАЙЛ / JLPT ЗАМ (зөвхөн дэлгэц — өгөгдөл, логик хөндөөгүй) ══
+function setNav(k){ document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('on', t.getAttribute('data-nav')===k)); }
+function bcardHTML(k,i,t,s){ return '<button class="bcard" data-go="'+k+'"><span class="bi">'+i+'</span><b>'+esc(t)+'</b><span>'+esc(s)+'</span></button>'; }
+function pickContinueLesson(){
+  if(activeLesson){ const L=LESSONS.find(x=>String(x.id)===String(activeLesson)); if(L) return L; }
+  const lv=orderedLevels().filter(l=>MODS.some(m=>m.level_id===l.id));
+  for(const l of lv){ const f=firstLessonOfLevel(l.id); if(f) return f; }
+  return null;
+}
+function homeGo(k){
+  if(k==='learn'){ const L=pickContinueLesson(); if(L) selectLesson(L.id); else { setNav('learn'); openDrawer(true); } }
+  else if(k==='read') showReading();
+  else if(k==='games') showGames();
+  else if(k==='words') showSavedWords();
+  else if(k==='board') showLeaderboard();
+  else if(k==='road') showRoadmap();
+  else if(k==='profile') showProfile();
+  else if(k==='premium') showUpgrade();
+}
+function showHome(){
+  activeLesson=null; setBg('bg-app.jpg'); setNav('home'); renderNav();
+  const st=myStats||{}, xp=st.total_xp||0, streak=st.streak||0, done=st.lessons_done||0;
+  const total=LESSONS.length||1, pct=Math.min(100,Math.round(done/total*100));
+  const L=pickContinueLesson();
+  const M=L?(MODS.find(m=>m.id===L.module_id)||{}):{};
+  const LV=M.level_id?(LEVELS.find(x=>x.id===M.level_id)||{}):{};
+  let html='<div class="home"><div class="greet"><h1>Сайн уу, '+esc(userName||'найз')+' 🌸</h1><p>Өнөөдөр бага ч гэсэн сурцгаая.</p></div>';
+  html+='<div class="kpis">'+
+    '<div class="kpi"><div class="kv">🔥 '+streak+'</div><div class="kl">дараалал</div></div>'+
+    '<div class="kpi"><div class="kv">'+xp.toLocaleString('en-US')+'</div><div class="kl">XP</div></div>'+
+    '<div class="kpi"><div class="kv">'+done+'</div><div class="kl">дууссан</div></div></div>';
+  if(L){
+    html+='<div class="continue-card"><div class="cc-lab">Үргэлжлүүлэх</div><h2>'+esc(L.title_mn||'Хичээл')+'</h2>'+
+      '<div class="cc-jp">'+esc(((LV.code||LV.name_mn||'')+' · '+(M.title_mn||'')).replace(/^ · /,''))+'</div>'+
+      '<div class="prog"><div class="prog-bar" style="width:'+pct+'%"></div></div>'+
+      '<div class="cc-sub">'+done+' / '+total+' хичээл · '+pct+'%</div>'+
+      '<button class="cc-btn" id="cc-go">▶︎ Үргэлжлүүлэх</button></div>';
+  }
+  html+='<div class="sect-t">Судлах</div><div class="bento">'+
+    bcardHTML('learn','📚','Хичээл','Түвшин · модуль')+
+    bcardHTML('read','📖','Унших',(READING?READING.length:0)+' өгүүллэг')+
+    bcardHTML('games','🎮','Тоглоом','Кана дадлага')+
+    bcardHTML('words','📓','Миний үгс',(SAVED?SAVED.length:0)+' үг')+
+    bcardHTML('board','🏆','Тэмцээн','Онооны самбар')+
+    bcardHTML('road','🗾','JLPT зам','Түвшний тойм')+
+    '</div>';
+  html+='<div class="sect-t">Бусад</div><div class="bento">'+
+    bcardHTML('profile','👤','Профайл','Оноо · тохиргоо')+
+    bcardHTML('premium','⭐','Premium','Бүх түвшин нээх')+
+    '</div></div>';
+  $('#main').innerHTML=html;
+  const cc=$('#cc-go'); if(cc&&L) cc.onclick=()=>selectLesson(L.id);
+  document.querySelectorAll('.bcard').forEach(b=>b.onclick=()=>homeGo(b.getAttribute('data-go')));
+  window.scrollTo(0,0); if(window.innerWidth<=900) openDrawer(false);
+}
+function showRoadmap(){
+  activeLesson=null; setBg('bg-grammar.jpg'); setNav('learn'); renderNav();
+  const lv=orderedLevels().filter(l=>MODS.some(m=>m.level_id===l.id));
+  const max=Math.max.apply(null,lv.map(l=>lessonsOfLevel(l.id).length).concat([1]));
+  let html='<div class="upgrade"><div class="up-badge">🗾 JLPT зам</div><h2>Түвшний тойм</h2><p>Аль түвшинд хэдэн хичээл байгааг харна. Дарж эхлээрэй.</p>';
+  lv.forEach(l=>{
+    const n=lessonsOfLevel(l.id).length, mods=MODS.filter(m=>m.level_id===l.id).length;
+    const w=Math.round(n/max*100), lock=levelLocked(l.id);
+    html+='<div class="rd-row rd-go" data-id="'+escA(l.id)+'" style="cursor:pointer">'+
+      '<div class="rd-code">'+(lock?'🔒 ':'')+esc(l.code||l.name_mn||'')+'</div>'+
+      '<div class="rd-bar"><div class="rd-fill" style="width:'+w+'%"></div></div>'+
+      '<div class="rd-n">'+mods+'м · '+n+'х</div></div>';
+  });
+  $('#main').innerHTML=html+'</div>';
+  document.querySelectorAll('.rd-go').forEach(r=>r.onclick=()=>jumpLevel(r.getAttribute('data-id')));
+  window.scrollTo(0,0); if(window.innerWidth<=900) openDrawer(false);
+}
+function showProfile(){
+  activeLesson=null; setBg('bg-app.jpg'); setNav('profile'); renderNav();
+  const st=myStats||{}, name=userName||'Зочин';
+  const email=(currentUser&&currentUser.email)||'зочин горим';
+  const badge=isAdmin()?'★ Эзэн':(isPremium()?'★ Premium':'Үнэгүй');
+  let html='<div class="upgrade"><div class="up-badge">👤 Профайл</div>'+
+    '<div class="lb-row" style="padding:20px"><div class="lb-av" style="width:58px;height:58px;font-size:22px">'+esc(initials(name))+'</div>'+
+    '<div class="lb-name"><div style="font-size:19px">'+esc(name)+'</div><div class="lb-sub">'+esc(email)+'</div></div>'+
+    '<div class="lb-xp">'+esc(badge)+'</div></div>'+
+    '<div class="kpis" style="margin-top:14px">'+
+      '<div class="kpi"><div class="kv">🔥 '+(st.streak||0)+'</div><div class="kl">дараалал</div></div>'+
+      '<div class="kpi"><div class="kv">'+((st.total_xp||0).toLocaleString('en-US'))+'</div><div class="kl">XP</div></div>'+
+      '<div class="kpi"><div class="kv">'+(st.lessons_done||0)+'</div><div class="kl">дууссан</div></div>'+
+    '</div>'+
+    '<div class="sect-t">Тохиргоо</div><div class="bento">'+
+      bcardHTML('words','📓','Миний үгс',(SAVED?SAVED.length:0)+' үг')+
+      bcardHTML('board','🏆','Тэмцээн','Миний эрэмбэ')+
+      bcardHTML('premium','⭐','Premium',isPremium()?'Идэвхтэй':'Бүх түвшин нээх')+
+      bcardHTML('road','🗾','JLPT зам','Түвшний тойм')+
+    '</div>';
+  if(isAdmin()) html+='<button class="out" id="pf-admin" style="margin-top:16px;width:100%">👑 Эзэн самбар</button>';
+  html+='<button class="out" id="pf-out" style="margin-top:10px;width:100%">Гарах</button></div>';
+  $('#main').innerHTML=html;
+  document.querySelectorAll('.bcard').forEach(b=>b.onclick=()=>homeGo(b.getAttribute('data-go')));
+  const pa=$('#pf-admin'); if(pa) pa.onclick=showAdmin;
+  const po=$('#pf-out'); if(po) po.onclick=logout;
+  window.scrollTo(0,0); if(window.innerWidth<=900) openDrawer(false);
+}
+// ── Тоглоом ──
+function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); const t=a[i]; a[i]=a[j]; a[j]=t; } return a; }
+// Дуудлага (япон авиа сонсох)
+function speak(t){ try{ if(!('speechSynthesis' in window)||!t) return; const u=new SpeechSynthesisUtterance(String(t)); u.lang='ja-JP'; u.rate=0.85; window.speechSynthesis.cancel(); window.speechSynthesis.speak(u); }catch(e){} }
+document.addEventListener('click',function(e){ const s=e.target.closest('[data-say]'); if(s){ speak(s.getAttribute('data-say')); } });
+// Флаш карт
+function flashDeck(type){
+  if(type==='vocab'){ const seen={}; const out=[]; READING.forEach(s=>(s.vocab||[]).forEach(v=>{ if(v.word&&!seen[v.word]){ seen[v.word]=1; out.push({front:v.word, back:v.mn, sub:mnReading(v.reading||v.word)}); }})); return out; }
+  return kanaPool(type).map(p=>({front:p.kana, back:p.romaji, sub:''}));
+}
+function flashGame(type){
+  activeLesson=null; renderNav();
+  const deck=shuffle(flashDeck(type).slice()); let idx=0, known=0, flipped=false;
+  if(!deck.length){ $('#main').innerHTML='<div class="upgrade"><h2>Флаш карт</h2><p>Энэ багцад карт алга.</p><button class="out" id="game-back">← Тоглоомууд</button></div>'; $('#game-back').onclick=showGames; return; }
+  function draw(){
+    if(idx>=deck.length){ finish(); return; }
+    const c=deck[idx];
+    $('#main').innerHTML='<div class="lessonhdr"><div class="crumb">🗂️ Флаш карт</div><div class="jp">'+(idx+1)+' / '+deck.length+'</div></div>'+
+      '<div class="flash'+(flipped?' flip':'')+'" id="flash"><div class="flash-inner">'+
+        '<div class="flash-front"><div class="big">'+esc(c.front)+'</div><button class="say-btn" data-say="'+escA(c.front)+'">🔊</button></div>'+
+        '<div class="flash-back"><div class="big">'+esc(c.back)+'</div>'+(c.sub?'<div class="sub">'+esc(c.sub)+'</div>':'')+'</div>'+
+      '</div></div>'+
+      '<div style="text-align:center;color:var(--muted);margin:14px 0;font-size:13px">👆 Картыг дарж эргүүл</div>'+
+      '<div style="display:flex;gap:10px"><button class="out" id="dunno" style="flex:1;border-color:#f59e0b;color:#b45309">🔁 Дахин үзэх</button><button class="complete-btn" id="know" style="flex:1;margin-top:0">✓ Мэдэж байна</button></div>'+
+      '<button class="out" id="game-back" style="margin-top:14px">← Тоглоомууд</button>';
+    $('#flash').onclick=function(e){ if(e.target.closest('.say-btn'))return; flipped=!flipped; draw(); };
+    $('#know').onclick=()=>{ known++; idx++; flipped=false; draw(); };
+    $('#dunno').onclick=()=>{ deck.push(deck[idx]); idx++; flipped=false; draw(); };
+    $('#game-back').onclick=showGames;
+  }
+  async function finish(){
+    let msg='<div class="game-done"><div style="font-size:44px">🎉</div><h2>Багц дууслаа!</h2><div class="lb-sub">'+known+' карт судаллаа</div>';
+    if(currentUser){ const xp=await addGameXP(10,'Флаш карт судаллаа'); if(xp){ myStats=myStats||{}; myStats.total_xp=(myStats.total_xp||0)+xp; updateXP(); } msg+='<div class="game-xp">+10 XP</div>'; }
+    msg+='<button class="complete-btn" id="again">Дахин</button><button class="out" id="tomenu" style="margin-top:8px">Тоглоомууд</button></div>';
+    $('#main').innerHTML=msg; $('#again').onclick=()=>flashGame(type); $('#tomenu').onclick=showGames;
+  }
+  draw();
+}
+function kanaPool(type){ const all=Object.keys(KANA_ROMAJI); const hira=all.filter(c=>c>='\u3040'&&c<='\u309f'); const kata=all.filter(c=>c>='\u30a0'&&c<='\u30ff'); const p=(type==='kata'?kata:hira); return p.map(c=>({kana:c,romaji:KANA_ROMAJI[c]})); }
+async function addGameXP(xp, activity){ if(!currentUser) return 0; try{ const {data,error}=await db.rpc('add_xp',{p_xp:xp,p_name:userName,p_activity:activity}); if(error)throw error; return data||0; }catch(e){ return 0; } }
+let gameType='hira';
+function showGames(){
+  activeLesson=null; renderNav(); setBg('bg-game.jpg'); setNav('games');
+  $('#main').innerHTML='<div class="upgrade" style="max-width:640px"><div class="up-badge" style="background:#f3e8ff;color:#7e22ce">🎮 Тоглоом</div><h2>Тоглоод сур</h2><p style="color:var(--muted);margin-bottom:14px">Кана тоглоомоор дадлагажаад XP цуглуулаарай.</p>'+
+    '<div class="lb-tabs"><button class="lb-tab'+(gameType==='hira'?' sel':'')+'" data-k="hira" style="font-family:var(--jp)">ひらがな</button><button class="lb-tab'+(gameType==='kata'?' sel':'')+'" data-k="kata" style="font-family:var(--jp)">カタカナ</button></div>'+
+    '<div class="game-card" data-g="memory"><div class="game-ic">🧠</div><div class="lb-name">Кана санах ой<div class="lb-sub">Хос картуудыг ол — кана ↔ дуудлага</div></div><span class="lb-xp" style="color:#7e22ce">+15 XP</span></div>'+
+    '<div class="game-card" data-g="speed"><div class="game-ic">⚡</div><div class="lb-name">Хурдан таних<div class="lb-sub">60 секундэд аль болох олон зөв хариул</div></div><span class="lb-xp" style="color:#7e22ce">Оноо → XP</span></div>'+
+    '<div class="game-card" data-g="flash"><div class="game-ic">🗂️</div><div class="lb-name">Кана флаш карт<div class="lb-sub">Картыг эргүүлж дуудлагыг сонс 🔊</div></div><span class="lb-xp" style="color:#7e22ce">+10 XP</span></div>'+
+    '<div class="game-card" data-g="flashvocab"><div class="game-ic">📇</div><div class="lb-name">Үгсийн флаш карт<div class="lb-sub">Унших номын шинэ үгсийг цээжил</div></div><span class="lb-xp" style="color:#7e22ce">+10 XP</span></div>'+
+    '</div>';
+  document.querySelectorAll('.lb-tab').forEach(b=>b.onclick=()=>{ gameType=b.dataset.k; showGames(); });
+  document.querySelectorAll('.game-card').forEach(c=>c.onclick=()=>{ const g=c.dataset.g; if(g==='memory')memoryGame(gameType); else if(g==='speed')speedGame(gameType); else if(g==='flash')flashGame(gameType); else flashGame('vocab'); });
+}
+function memoryGame(type){
+  activeLesson=null; renderNav();
+  const pool=shuffle(kanaPool(type).slice()).slice(0,6);
+  let cards=[]; pool.forEach(p=>{ cards.push({key:p.romaji,face:p.kana}); cards.push({key:p.romaji,face:p.romaji}); });
+  shuffle(cards); cards.forEach((c,i)=>c.i=i);
+  let flipped=[], matched=0, moves=0, lock=false, start=Date.now();
+  function draw(){
+    $('#main').innerHTML='<div class="lessonhdr"><div class="crumb">🎮 Тоглоом › Кана санах ой</div><h1>Хосыг ол</h1><div class="jp">'+moves+' алхам · '+matched+'/6 хос</div></div><div class="mem-grid">'+
+      cards.map(c=>'<div class="mem-card'+(c.done?' done':'')+(c.open?' open':'')+'" data-i="'+c.i+'">'+((c.open||c.done)?'<span>'+esc(c.face)+'</span>':'?')+'</div>').join('')+'</div><button class="out" id="game-back" style="margin-top:16px">← Тоглоомууд</button>';
+    $('#game-back').onclick=showGames;
+    document.querySelectorAll('.mem-card').forEach(el=>el.onclick=()=>tap(+el.dataset.i));
+  }
+  function tap(i){
+    if(lock) return; const c=cards[i]; if(c.open||c.done) return;
+    c.open=true; flipped.push(c); draw();
+    if(flipped.length===2){ moves++; lock=true;
+      if(flipped[0].key===flipped[1].key){ flipped.forEach(x=>{x.done=true;x.open=false;}); matched++; flipped=[]; lock=false; draw(); if(matched===6) finish(); }
+      else { setTimeout(()=>{ flipped.forEach(x=>x.open=false); flipped=[]; lock=false; draw(); }, 750); }
+    }
+  }
+  async function finish(){
+    const sec=Math.round((Date.now()-start)/1000);
+    let msg='<div class="game-done"><div style="font-size:44px">🎉</div><h2>Бүгдийг оллоо!</h2><div class="lb-sub">'+sec+' секунд · '+moves+' алхам</div>';
+    if(currentUser){ const xp=await addGameXP(15,'Кана санах ойн тоглоом'); if(xp){ myStats=myStats||{}; myStats.total_xp=(myStats.total_xp||0)+xp; updateXP(); } msg+='<div class="game-xp">+15 XP</div>'; }
+    msg+='<button class="complete-btn" id="again">Дахин тоглох</button><button class="out" id="tomenu" style="margin-top:8px">Тоглоомууд</button></div>';
+    $('#main').innerHTML=msg; $('#again').onclick=()=>memoryGame(type); $('#tomenu').onclick=showGames;
+  }
+  draw();
+}
+function speedGame(type){
+  activeLesson=null; renderNav();
+  const pool=kanaPool(type); let score=0, combo=0, best=0, timeLeft=60, timer=null, cur=null, done=false;
+  function next(){
+    cur=pool[Math.floor(Math.random()*pool.length)];
+    const others=shuffle(pool.filter(p=>p.romaji!==cur.romaji)).slice(0,3).map(p=>p.romaji);
+    const opts=shuffle([cur.romaji].concat(others));
+    const ke=$('#sg-kana'); if(ke) ke.textContent=cur.kana;
+    const oe=$('#sg-opts'); if(oe){ oe.innerHTML=opts.map((o,i)=>'<button class="sg-opt" data-i="'+i+'">'+esc(o)+'</button>').join(''); document.querySelectorAll('.sg-opt').forEach((b,i)=>b.onclick=()=>answer(opts[i],b)); }
+  }
+  function answer(o,btn){
+    if(done) return;
+    if(o===cur.romaji){ score++; combo++; best=Math.max(best,combo); btn.classList.add('ok'); }
+    else { combo=0; btn.classList.add('no'); }
+    document.querySelectorAll('.sg-opt').forEach(b=>b.disabled=true);
+    const se=$('#sg-score'); if(se) se.textContent=score; const ce=$('#sg-combo'); if(ce) ce.textContent=combo>1?('🔥'+combo):'';
+    setTimeout(next,200);
+  }
+  function tick(){ timeLeft--; const te=$('#sg-time'); if(te) te.textContent=timeLeft; if(timeLeft<=0){ clearInterval(timer); finish(); } }
+  async function finish(){
+    done=true; clearInterval(timer);
+    const xp=Math.min(score,30);
+    let msg='<div class="game-done"><div style="font-size:44px">⚡</div><h2>Дууслаа!</h2><div class="lb-sub">Оноо: '+score+' · Хамгийн урт цуваа: 🔥'+best+'</div>';
+    if(currentUser&&xp>0){ const g=await addGameXP(xp,'Хурдан таних ('+score+' оноо)'); if(g){ myStats=myStats||{}; myStats.total_xp=(myStats.total_xp||0)+g; updateXP(); } msg+='<div class="game-xp">+'+xp+' XP</div>'; }
+    msg+='<button class="complete-btn" id="again">Дахин тоглох</button><button class="out" id="tomenu" style="margin-top:8px">Тоглоомууд</button></div>';
+    $('#main').innerHTML=msg; $('#again').onclick=()=>speedGame(type); $('#tomenu').onclick=showGames;
+  }
+  $('#main').innerHTML='<div class="lessonhdr"><div class="crumb">🎮 Тоглоом › Хурдан таних</div></div><div class="sg-top"><span>⏱️ <b id="sg-time">60</b>с</span><span>Оноо: <b id="sg-score">0</b></span><span id="sg-combo" style="color:var(--sakura);font-weight:800"></span></div><div class="sg-kana" id="sg-kana"></div><div class="sg-opts" id="sg-opts"></div><button class="out" id="game-back" style="margin-top:20px">← Тоглоомууд</button>';
+  $('#game-back').onclick=()=>{ done=true; clearInterval(timer); showGames(); };
+  next(); timer=setInterval(tick,1000);
+}
+let lbTab='board';
+async function showLeaderboard(){
+  activeLesson=null; renderNav(); setBg('bg-app.jpg');
+  $('#main').innerHTML='<div class="upgrade" style="max-width:640px"><div class="up-badge" style="background:var(--sakura-soft);color:var(--sakura)">🏆 Тэмцээн</div><h2>Онооны самбар</h2>'+
+    '<div class="lb-tabs"><button class="lb-tab'+(lbTab==='board'?' sel':'')+'" data-t="board">Эрэмбэ</button><button class="lb-tab'+(lbTab==='feed'?' sel':'')+'" data-t="feed">Үйл явдал</button><button class="lb-tab'+(lbTab==='daily'?' sel':'')+'" data-t="daily">🎯 Өдрийн зорилт</button></div>'+
+    '<div id="lb-body" style="color:var(--muted)">Ачаалж байна…</div></div>';
+  document.querySelectorAll('.lb-tab').forEach(b=>b.onclick=()=>{ lbTab=b.dataset.t; showLeaderboard(); });
+  const body=$('#lb-body');
+  if(lbTab==='board'){
+    const {data,error}=await db.from('user_stats').select('*').order('total_xp',{ascending:false}).limit(100);
+    if(error){ body.innerHTML='<div class="amsg err">Алдаа: '+esc(error.message)+'</div>'; return; }
+    if(!data||!data.length){ body.innerHTML='<div style="color:var(--muted)">Одоохондоо оноо алга. Хичээл дуусгаад эхнийх нь бол! 🎯</div>'; return; }
+    body.innerHTML=data.map((r,i)=>{ const me=currentUser&&r.user_id===currentUser.id; const medal=i===0?'🥇':i===1?'🥈':i===2?'🥉':(i+1); return '<div class="lb-row'+(me?' me':'')+'"><div class="lb-rank'+(i<3?' top':'')+'">'+medal+'</div><div class="lb-av">'+esc(initials(r.display_name))+'</div><div class="lb-name">'+esc(r.display_name||'Хэрэглэгч')+(me?' <span style="color:var(--sakura)">(та)</span>':'')+'<div class="lb-sub">'+(r.lessons_done||0)+' хичээл</div></div><div class="lb-xp">'+((r.total_xp||0).toLocaleString('en-US'))+' XP</div></div>'; }).join('');
+  } else if(lbTab==='daily'){
+    if(!currentUser){ body.innerHTML='<div style="color:var(--muted)">Нэвтэрч өдрийн зорилтоо хараарай.</div>'; return; }
+    const t0=new Date(); t0.setHours(0,0,0,0);
+    let doneToday=0;
+    try{ const {data}=await db.from('activity_feed').select('created_at').eq('user_id',currentUser.id).gte('created_at',t0.toISOString()); doneToday=(data||[]).length; }catch(e){}
+    const goal=5, pct=Math.min(100,Math.round(doneToday/goal*100)), streak=(myStats&&myStats.streak)||0;
+    body.innerHTML=
+      '<div class="lb-row" style="display:block"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px"><b>📚 Өнөөдөр '+goal+' хичээл/өгүүллэг</b><span class="lb-xp">'+doneToday+'/'+goal+'</span></div><div style="height:10px;background:var(--line2);border-radius:999px;overflow:hidden"><div style="height:100%;width:'+pct+'%;background:linear-gradient(90deg,var(--sakura),var(--gold));border-radius:999px;transition:width .4s"></div></div>'+(doneToday>=goal?'<div style="color:#15803d;font-weight:700;margin-top:8px">🎉 Өнөөдрийн зорилт биеллээ!</div>':'<div style="color:var(--muted);font-size:12px;margin-top:8px">Дахин '+(goal-doneToday)+' хийвэл өдрийн зорилт биелнэ.</div>')+'</div>'+
+      '<div class="lb-row"><div class="lb-av" style="background:linear-gradient(135deg,#f59e0b,#ef4444)">🔥</div><div class="lb-name">Дараалсан өдөр<div class="lb-sub">Өдөр бүр хичээл хийвэл нэмэгдэнэ</div></div><div class="lb-xp" style="color:#f59e0b">'+streak+' өдөр</div></div>'+
+      '<div class="lb-row"><div class="lb-av">⭐</div><div class="lb-name">Нийт оноо</div><div class="lb-xp">'+(((myStats&&myStats.total_xp)||0).toLocaleString('en-US'))+' XP</div></div>';
+  } else {
+    const {data,error}=await db.from('activity_feed').select('*').order('created_at',{ascending:false}).limit(50);
+    if(error){ body.innerHTML='<div class="amsg err">Алдаа: '+esc(error.message)+'</div>'; return; }
+    if(!data||!data.length){ body.innerHTML='<div style="color:var(--muted)">Одоохондоо үйл явдал алга.</div>'; return; }
+    body.innerHTML=data.map(r=>'<div class="feed-item"><div class="feed-av">'+esc(initials(r.display_name))+'</div><div class="feed-b"><b>'+esc(r.display_name||'Хэрэглэгч')+'</b> <span style="color:var(--muted);font-size:12px">· '+timeAgo(r.created_at)+'</span><div class="feed-t">✓ '+esc(r.text||'')+'</div></div><div class="feed-x">+'+(r.xp||0)+' XP</div></div>').join('');
+  }
+}
+
+// ── дээд түвшний товч ──
+function renderLevels(){
+  const box=$('#levels'); box.innerHTML='';
+  orderedLevels().forEach(l=>{
+    if(!MODS.some(m=>m.level_id===l.id)) return;   // хоосон түвшин алгасах
+    const b=document.createElement('button');
+    b.className='lvl'+(l.id===activeLevel?' active':'');
+    b.innerHTML=(levelLocked(l.id)?'🔒 ':'')+esc(l.code||l.name_mn)+' <span class="n">'+MODS.filter(m=>m.level_id===l.id).length+'</span>';
+    b.onclick=()=>jumpLevel(l.id); box.appendChild(b);
+  });
+}
+function jumpLevel(id){ const f=firstLessonOfLevel(id); if(f) selectLesson(f.id); else { activeLevel=id; activeLesson=null; const lv=LEVELS.find(x=>x.id===id); setBg(!/N[1-5]/i.test((lv&&lv.code)||'')?'bg-kana.jpg':'bg-grammar.jpg'); renderLevels(); renderNav(); $('#main').innerHTML='<div class="empty"><span class="jp">…</span>Энэ түвшинд хичээл алга</div>'; } }
+function firstLessonOfLevel(id){ const mods=MODS.filter(m=>m.level_id===id).sort(byOrder); for(const m of mods){ const ls=LESSONS.filter(x=>x.module_id===m.id).sort(byOrder); if(ls.length) return ls[0]; } return null; }
+
+// ── хажуугийн цэс: N5/N4/N3 → модуль → хичээл ──
+function renderNav(){
+  const q=($('#search').value||'').toLowerCase().trim();
+  const tree=$('#tree'); tree.innerHTML='';
+  orderedLevels().forEach(lv=>{
+    const mods=MODS.filter(m=>m.level_id===lv.id).sort(byOrder);
+    if(mods.length===0) return;   // хоосон түвшин (N2/N1 г.м.) харуулахгүй
+    let modsHtml=''; let anyMatch=false;
+    mods.forEach(m=>{
+      let ls=LESSONS.filter(x=>x.module_id===m.id).sort(byOrder); let mm=true;
+      if(q){ mm=(m.title_mn+m.title_native).toLowerCase().includes(q); ls=ls.filter(x=>mm || (x.title_mn+x.title_native).toLowerCase().includes(q)); if(!ls.length && !mm) return; }
+      anyMatch=true;
+      const openMod = q || ls.some(x=>x.id===activeLesson);
+      const lsHtml=ls.map(x=>'<div class="lz'+(x.id===activeLesson?' active':'')+'" data-lesson="'+escA(x.id)+'"><span class="num">'+(x.display_order||'')+'</span>'+esc(x.title_mn)+'<span class="native">'+esc(x.title_native)+'</span></div>').join('');
+      modsHtml+='<div class="mod'+(openMod?' open':'')+'"><div class="mhead"><span class="chev">▸</span>'+esc(m.title_mn)+'<span class="native">'+esc(m.title_native)+'</span></div><div class="lessons">'+lsHtml+'</div></div>';
+    });
+    if(q && !anyMatch) return;
+    const lc=lessonsOfLevel(lv.id).length; const openLvl = !!q;
+    const g=document.createElement('div'); g.className='lgroup'+(openLvl?' open':'');
+    g.innerHTML='<div class="lghead"><span class="chev">▸</span><span class="code">'+(levelLocked(lv.id)?'🔒 ':'')+esc(lv.code||'')+'</span><span class="lgname">'+esc(lv.name_mn||'')+'</span><span class="cnt">'+mods.length+'м · '+lc+'х</span></div><div class="lgbody">'+modsHtml+'</div>';
+    tree.appendChild(g);
+  });
+  if(!tree.children.length) tree.innerHTML='<div style="color:var(--muted);padding:20px;text-align:center">Илэрц алга</div>';
+}
+$('#tree').addEventListener('click',e=>{
+  const lz=e.target.closest('.lz'); if(lz){ selectLesson(lz.getAttribute('data-lesson')); return; }
+  const mh=e.target.closest('.mhead'); if(mh){ mh.parentElement.classList.toggle('open'); return; }
+  const lh=e.target.closest('.lghead'); if(lh){ lh.parentElement.classList.toggle('open'); return; }
+});
+
+function selectLesson(id){
+  const L=LESSONS.find(x=>String(x.id)===String(id)); if(!L) return;
+  const M=MODS.find(m=>m.id===L.module_id)||{};
+  if(levelLocked(M.level_id)){ activeLevel=M.level_id; renderLevels(); showUpgrade(); return; }
+  activeLesson=L.id; activeLevel=M.level_id||activeLevel;
+  setBg(bgForLesson(L)); setNav('learn');
+  renderLevels(); renderNav();
+  const LV=LEVELS.find(l=>l.id===M.level_id)||{};
+  const blocks=BLOCKS.filter(b=>b.lesson_id===L.id).sort(byOrder);
+  let html='<div class="lessonhdr"><div class="crumb">'+esc(LV.code||LV.name_mn||'')+' › '+esc(M.title_mn||'')+' <span style="font-family:var(--jp)">'+esc(M.title_native||'')+'</span></div><h1>'+esc(L.title_mn)+'</h1><div class="jp">'+esc(L.title_native||'')+'</div><div class="meta"><span>+'+(L.xp_reward||0)+' XP</span><span>'+(L.estimated_minutes||0)+' мин</span><span>'+blocks.length+' блок</span></div></div>';
+  html += blocks.map(b=>renderBlock(b, L)).join('') || '<div class="empty">Блок алга</div>';
+  if(currentUser) html += '<button class="complete-btn" id="complete-btn">✓ Хичээл дуусгах (+'+(L.xp_reward||10)+' XP)</button>';
+  $('#main').innerHTML=html; window.scrollTo(0,0); initHandwriting(); if(window.innerWidth<=820) openDrawer(false);
+  const cb=$('#complete-btn'); if(cb){ cb.onclick=async()=>{ cb.disabled=true; cb.textContent='Түр хүлээнэ үү…'; const xp=await completeLesson(L); if(xp&&xp>0){ myStats=myStats||{total_xp:0,lessons_done:0}; myStats.total_xp=(myStats.total_xp||0)+xp; myStats.lessons_done=(myStats.lessons_done||0)+1; updateXP(); cb.textContent='🎉 Дууссан! +'+xp+' XP'; } else if(xp===0){ cb.textContent='✓ Энэ хичээлийг аль хэдийн дуусгасан'; } else { cb.textContent='Алдаа — дахин дарна уу'; cb.disabled=false; } }; }
+}
+function content(b){ let c=b.content; if(typeof c==='string'){try{c=JSON.parse(c)}catch(e){c={}}} return c||{}; }
+
+// ── Кана → монгол галиглал (せんせい → сэнсэй) ──
+const MN_KANA={
+  'あ':'а','い':'и','う':'ү','え':'э','お':'о','か':'ка','き':'ки','く':'кү','け':'кэ','こ':'ко',
+  'さ':'са','し':'ши','す':'сү','せ':'сэ','そ':'со','た':'та','ち':'чи','つ':'цү','て':'тэ','と':'то',
+  'な':'на','に':'ни','ぬ':'нү','ね':'нэ','の':'но','は':'ха','ひ':'хи','ふ':'фү','へ':'хэ','ほ':'хо',
+  'ま':'ма','み':'ми','む':'мү','め':'мэ','も':'мо','や':'я','ゆ':'ю','よ':'ё',
+  'ら':'ра','り':'ри','る':'рү','れ':'рэ','ろ':'ро','わ':'ва','を':'о','ん':'н',
+  'が':'га','ぎ':'ги','ぐ':'гү','げ':'гэ','ご':'го','ざ':'за','じ':'жи','ず':'зү','ぜ':'зэ','ぞ':'зо',
+  'だ':'да','ぢ':'жи','づ':'зү','で':'дэ','ど':'до','ば':'ба','び':'би','ぶ':'бү','べ':'бэ','ぼ':'бо',
+  'ぱ':'па','ぴ':'пи','ぷ':'пү','ぺ':'пэ','ぽ':'по'
+};
+const MN_COMBO={
+  'きゃ':'кя','きゅ':'кю','きょ':'кё','しゃ':'ша','しゅ':'шү','しょ':'шо','ちゃ':'ча','ちゅ':'чү','ちょ':'чо',
+  'にゃ':'ня','にゅ':'ню','にょ':'нё','ひゃ':'хя','ひゅ':'хю','ひょ':'хё','みゃ':'мя','みゅ':'мю','みょ':'мё',
+  'りゃ':'ря','りゅ':'рю','りょ':'рё','ぎゃ':'гя','ぎゅ':'гю','ぎょ':'гё','じゃ':'жа','じゅ':'жү','じょ':'жо',
+  'びゃ':'бя','びゅ':'бю','びょ':'бё','ぴゃ':'пя','ぴゅ':'пю','ぴょ':'пё'
+};
+function kata2hira(s){ return s.replace(/[\u30a1-\u30f6]/g,c=>String.fromCharCode(c.charCodeAt(0)-0x60)); }
+function mnReading(str){
+  if(!str) return '';
+  const s=kata2hira(String(str)); let out='';
+  for(let i=0;i<s.length;i++){
+    const ch=s[i], nx=s[i+1];
+    if(nx && 'ゃゅょ'.indexOf(nx)>=0 && MN_COMBO[ch+nx]){ out+=MN_COMBO[ch+nx]; i++; continue; }
+    if(ch==='っ'){ const t=MN_KANA[nx]||''; if(t) out+=t[0]; continue; }
+    if(ch==='ー'||ch==='ｰ'){ const v=out.slice(-1); if('аиуүэо'.indexOf(v)>=0) out+=v; continue; }
+    out += (MN_KANA[ch]!==undefined ? MN_KANA[ch] : ch);
+  }
+  return out.replace(/аи/g,'ай').replace(/эи/g,'эй').replace(/ои/g,'ой').replace(/уи/g,'уй').replace(/үи/g,'үй').replace(/оү/g,'оо').replace(/ёү/g,'ёо');
+}
+
+const KANA={
+ hiragana:[['あ','a','い','i','う','u','え','e','お','o'],['か','ka','き','ki','く','ku','け','ke','こ','ko'],['さ','sa','し','shi','す','su','せ','se','そ','so'],['た','ta','ち','chi','つ','tsu','て','te','と','to'],['な','na','に','ni','ぬ','nu','ね','ne','の','no'],['は','ha','ひ','hi','ふ','fu','へ','he','ほ','ho'],['ま','ma','み','mi','む','mu','め','me','も','mo'],['や','ya','','','ゆ','yu','','','よ','yo'],['ら','ra','り','ri','る','ru','れ','re','ろ','ro'],['わ','wa','','','','','','','を','wo'],['ん','n','','','','','','','','']],
+ katakana:[['ア','a','イ','i','ウ','u','エ','e','オ','o'],['カ','ka','キ','ki','ク','ku','ケ','ke','コ','ko'],['サ','sa','シ','shi','ス','su','セ','se','ソ','so'],['タ','ta','チ','chi','ツ','tsu','テ','te','ト','to'],['ナ','na','ニ','ni','ヌ','nu','ネ','ne','ノ','no'],['ハ','ha','ヒ','hi','フ','fu','ヘ','he','ホ','ho'],['マ','ma','ミ','mi','ム','mu','メ','me','モ','mo'],['ヤ','ya','','','ユ','yu','','','ヨ','yo'],['ラ','ra','リ','ri','ル','ru','レ','re','ロ','ro'],['ワ','wa','','','','','','','ヲ','wo'],['ン','n','','','','','','','','']]
+};
+function renderKanaChart(kt,exc){
+  const rows=KANA[kt]||KANA.hiragana; exc=exc||[]; let cells='';
+  rows.forEach(r=>{ for(let i=0;i<10;i+=2){ const k=r[i],ro=r[i+1];
+    if(!k) cells+='<div class="kc empty"></div>';
+    else cells+='<div class="kc kana-cell'+(exc.indexOf(k)>=0?' exc':'')+'" data-say="'+escA(k)+'"><span class="k">'+k+'</span><span class="r">'+esc(ro)+'</span></div>';
+  }});
+  return '<div class="kgrid">'+cells+'</div>';
+}
+// кана → romaji (KANA хүснэгтээс)
+const KANA_ROMAJI=(()=>{ const m={}; ['hiragana','katakana'].forEach(k=>KANA[k].forEach(r=>{ for(let i=0;i<10;i+=2){ if(r[i]) m[r[i]]=r[i+1]; }})); return m; })();
+function renderHandwriting(c, L){
+  let chars=(c.chars||[]).filter(Boolean);
+  if(!chars.length && L && L.title_native){ chars=(L.title_native.match(/[ぁ-んァ-ヶ]/g)||[]); }
+  const inst=c.instruction_mn||'Доорх бүдэг загварыг дагаж хулгана/хуруугаараа бичиж дасгал хийгээрэй.';
+  let html='<div class="expl" style="display:block;color:var(--muted);margin-bottom:12px">✍️ '+esc(inst)+'</div><div class="hwgrid">';
+  chars.forEach((ch,i)=>{ html+='<div class="hwcell"><div class="hwguide">'+esc(ch)+'</div><canvas class="hwcanvas" width="300" height="300"></canvas><div class="hwrom">'+esc(KANA_ROMAJI[ch]||'')+'</div><button class="hwclear">Цэвэрлэх</button></div>'; });
+  return html+'</div>';
+}
+function initHandwriting(){
+  document.querySelectorAll('.hwcanvas').forEach(cv=>{
+    if(cv.dataset.init) return; cv.dataset.init='1';
+    const ctx=cv.getContext('2d'); ctx.lineWidth=14; ctx.lineCap='round'; ctx.lineJoin='round'; ctx.strokeStyle='#2B2430';
+    let drawing=false, lx=0, ly=0;
+    const pos=e=>{ const r=cv.getBoundingClientRect(); const t=(e.touches&&e.touches[0])?e.touches[0]:e; return [ (t.clientX-r.left)*(cv.width/r.width), (t.clientY-r.top)*(cv.height/r.height) ]; };
+    const start=e=>{ drawing=true; const p=pos(e); lx=p[0]; ly=p[1]; e.preventDefault(); };
+    const move=e=>{ if(!drawing)return; const p=pos(e); ctx.beginPath(); ctx.moveTo(lx,ly); ctx.lineTo(p[0],p[1]); ctx.stroke(); lx=p[0]; ly=p[1]; e.preventDefault(); };
+    const end=()=>{ drawing=false; };
+    cv.addEventListener('mousedown',start); cv.addEventListener('mousemove',move); window.addEventListener('mouseup',end);
+    cv.addEventListener('touchstart',start,{passive:false}); cv.addEventListener('touchmove',move,{passive:false}); cv.addEventListener('touchend',end);
+  });
+  document.querySelectorAll('.hwclear').forEach(b=>{ if(b.dataset.init)return; b.dataset.init='1'; b.onclick=()=>{ const cv=b.parentElement.querySelector('.hwcanvas'); cv.getContext('2d').clearRect(0,0,cv.width,cv.height); }; });
+}
+function renderBlock(b, L){
+  const c=content(b), t=c.type||b.block_type||'';
+  const tag='<div class="btag '+esc(t)+'"><span class="pip"></span>'+esc(b.title_mn||t)+'</div>';
+  let body='';
+  if(t==='explanation'){
+    body=(c.sections||[]).map(s=>'<div class="sec"><h4>'+esc(s.heading_mn)+'</h4><p>'+esc(s.body_mn)+'</p></div>').join('');
+    if(c.mongolian_bridge){ const st=Math.max(0,Math.min(3,c.bridge_strength||0)); const pips=[0,1,2].map(i=>'<i class="'+(i<st?'on':'')+'"></i>').join('');
+      body+='<div class="bridge"><div class="lab">💡 Монголоор бол <span class="strength">'+pips+'</span></div><p>'+esc(c.mongolian_bridge)+'</p></div>'; }
+  }else if(t==='example'){
+    body=(c.examples||[]).map(e=>'<div class="ex"><div style="display:flex;align-items:center;gap:8px"><div class="jp" style="flex:1">'+esc(e.jp)+'</div><button class="say-btn" data-say="'+escA(e.jp)+'">🔊</button></div><div class="mn">'+esc(e.mn)+'</div></div>').join('');
+  }else if(t==='quiz'){
+    body=(c.questions||[]).map(q=>{ const opts=(q.options||[]).map(o=>'<div class="opt" data-opt="'+escA(o)+'">'+esc(o)+'</div>').join('');
+      return '<div class="q" data-answer="'+escA(q.answer)+'"><div class="qt">'+esc(q.q)+'</div><div class="opts">'+opts+'</div><div class="expl">'+(q.explain_mn?'💡 '+esc(q.explain_mn):'')+'</div></div>'; }).join('');
+  }else if(t==='matching'){
+    const pairs=(c.pairs||[]).map(p=>'<div class="pair"><div><span class="jp">'+esc(p.jp)+'</span> '+(p.reading&&p.reading!==p.jp?'<span class="rd">'+esc(mnReading(p.reading))+'</span>':'')+'</div><div class="mn">'+esc(p.mn)+'</div></div>').join('');
+    body=(c.instruction_mn?'<div class="expl" style="display:block;color:var(--muted);margin-bottom:10px">'+esc(c.instruction_mn)+'</div>':'')+'<div class="pairs">'+pairs+'</div>';
+  }else if(t==='wrapup'){
+    body='<div class="vocab">'+(c.new_vocabulary||[]).map(v=>'<div class="v"><span class="w" data-say="'+escA(v.word)+'" style="cursor:pointer">'+esc(v.word)+' 🔊</span><span class="rd">'+esc(mnReading(v.reading||v.word))+'</span><span class="mn">'+esc(v.meaning_mn)+'</span></div>').join('')+'</div>';
+  }else if(t==='intro'){
+    body='<div class="intro">'+esc(c.text_mn)+'</div>';
+  }else if(t==='kana_chart'){
+    body=renderKanaChart(c.kana_type,c.highlight_exceptions);
+    if((c.highlight_exceptions||[]).length) body+='<div class="expl" style="display:block;color:var(--sakura);margin-top:10px">Онцгой дуудлагатай: '+esc((c.highlight_exceptions||[]).join(' · '))+'</div>';
+  }else if(t==='review'){
+    body='<div class="infocard"><div class="ic-ic">🔁</div><div><b>Давталт дасгал</b><div class="ic-sub">'+(c.question_count||'')+' асуулт'+(c.random?' · санамсаргүй дараалал':'')+'</div></div></div>';
+  }else if(t==='reading_speed'){
+    body='<div class="infocard"><div class="ic-ic">⏱️</div><div><b>Хурдан унших дасгал</b><div class="ic-sub">'+(c.word_count||'')+' үг · '+(c.time_limit_sec||'')+' секунд</div></div></div>';
+  }else if(t==='handwriting' || /гараар бич/i.test(b.title_mn||'')){
+    body=renderHandwriting(c, L);
+  }else{
+    body='<div class="infocard"><div class="ic-ic">🧩</div><div><b>'+esc(b.title_mn||t||'блок')+'</b><div class="ic-sub">Энэ төрлийн харагдац удахгүй нэмэгдэнэ.</div></div></div>';
+  }
+  if(!body){ body='<div class="infocard"><div class="ic-ic">🧩</div><div><b>'+esc(b.title_mn||t||'блок')+'</b><div class="ic-sub">Энэ хэсэг удахгүй нэмэгдэнэ.</div></div></div>'; }
+  return '<div class="block">'+tag+body+'</div>';
+}
+
+// quiz товшилт: хариулмагц зөв/буруу илэрнэ
+$('#main').addEventListener('click',e=>{
+  const opt=e.target.closest('.opt'); if(!opt) return;
+  const q=opt.closest('.q'); if(!q || q.classList.contains('answered')) return;
+  q.classList.add('answered');
+  const ans=q.getAttribute('data-answer');
+  q.querySelectorAll('.opt').forEach(o=>{ if(o.getAttribute('data-opt')===ans) o.classList.add('correct'); });
+  const ok = opt.getAttribute('data-opt')===ans;
+  if(!ok) opt.classList.add('wrong');
+  let res=q.querySelector('.qresult');
+  if(!res){ res=document.createElement('div'); res.className='qresult'; const ex=q.querySelector('.expl'); q.insertBefore(res, ex||null); }
+  res.className='qresult '+(ok?'ok':'no');
+  res.textContent = ok ? '✓ Зөв байна!' : ('✗ Буруу. Зөв хариу: '+ans);
+});
+$('#search').addEventListener('input',renderNav);
+// ── Утасны хажуугийн цэс (drawer) ──
+function openDrawer(o){ const a=document.querySelector('#app aside'), b=$('#backdrop'); if(!a||!b) return; a.classList.toggle('open',!!o); b.classList.toggle('show',!!o); }
+(function(){ const mb=$('#menu-btn'), bd=$('#backdrop'); if(mb) mb.onclick=()=>{ const a=document.querySelector('#app aside'); openDrawer(!(a&&a.classList.contains('open'))); }; if(bd) bd.onclick=()=>openDrawer(false); })();
+
+// эхлүүлэх
+// ── PWA: суулгах ба service worker ──
+if('serviceWorker' in navigator){ window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{})); }
+let deferredPrompt=null;
+window.addEventListener('beforeinstallprompt', e=>{ e.preventDefault(); deferredPrompt=e; const b=$('#install-btn'); if(b) b.style.display=''; });
+(function(){
+  const b=$('#install-btn'); if(!b) return;
+  b.onclick=async()=>{ if(deferredPrompt){ deferredPrompt.prompt(); await deferredPrompt.userChoice; deferredPrompt=null; b.style.display='none'; } };
+  const isIOS=/iphone|ipad|ipod/i.test(navigator.userAgent);
+  const standalone=window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
+  if(isIOS && !standalone){ const h=$('#ios-hint'); if(h) h.style.display=''; }
+})();
+
+decorateScene();
+loadData();
+checkSession();
+</script>
+</body>
+</html>
